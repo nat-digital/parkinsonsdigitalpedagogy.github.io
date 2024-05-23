@@ -1,0 +1,36 @@
+.xeogl-story {
+    position:absolute;
+    top: 150px;
+    z-index: 200000;
+    float: left;
+    left: 0px;
+    padding: 10px;
+    padding-left: 15px;
+    height: auto;
+    text-align: left;
+    overflow: scroll;
+    height: 82%;
+    font-size: 16px;
+    color: white;
+    border: 0;
+    max-width: 320px;
+}
+
+.xeogl-story h1 {
+    font-size: 26px;
+    /*border-bottom: solid 1px grey;*/
+    /*margin-bottom: 32px;*/
+}
+
+.xeogl-story a {
+    text-decoration: underline;
+    color: #1086aa !important;
+}
+
+.xeogl-story a:hover {
+    text-decoration: underline;
+}
+
+.xeogl-story img {
+    border: 1px #9c9c9c solid;
+}

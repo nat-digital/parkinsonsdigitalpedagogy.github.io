@@ -1,0 +1,715 @@
+a, button, input, div {
+    transition: all 0.2s ease-in-out;
+}
+
+    div.master-container {
+        min-width: 360px;
+        min-height: 360px;
+        margin: 0 auto;
+        overflow-x: initial !important;
+    }
+
+        div.master-container p {
+            margin: 1em 0;
+        }
+
+        div.master-container h1 {
+            margin: .67em 0;
+        }
+
+        div.master-container .ui-popup-screen {
+            height: 100% !important;
+            z-index: 699;
+        }
+
+        div.master-container .ui-popup-container {
+            z-index: 700;
+        }
+
+        div.master-container .chosen-container * {
+            box-sizing: border-box !important;
+        }
+
+        div.master-container *,
+        div.master-container *:before,
+        div.master-container *:after {
+            -webkit-box-sizing: content-box !important;
+            -moz-box-sizing: content-box !important;
+            box-sizing: content-box !important;
+        }
+
+
+
+        div.master-container .ui-page {
+            background: #dfdbd8;
+            height: 100%;
+        }
+
+        div.master-container .demo-glow {
+            box-shadow: 0 0 5px 5px red;
+        }
+
+        div.master-container .b-app {
+            cursor: default !important; /* fallback if grab cursor is unsupported */
+            cursor: grab !important;
+            cursor: -moz-grab !important;
+            cursor: -webkit-grab !important;
+            /*min-height: 634px;*/
+            /*min-width: 48em;*/
+        }
+
+        div.master-container .b-app-dragging {
+            cursor: default !important; /* fallback if grab cursor is unsupported */
+            cursor: grabbing !important;
+            cursor: -moz-grabbing !important;
+            cursor: -webkit-grabbing !important;
+        }
+
+        div.master-container .b-app-zoom {
+            cursor: default !important; /* fallback if grab cursor is unsupported */
+            cursor: zoom-in !important;
+            /*cursor: -moz-grabbing !important;*/
+            /*cursor: -webkit-grabbing !important;*/
+        }
+
+        div.master-container .b-app, div.master-container .b-app-ui, div.master-container .b-app-overlays {
+            position: absolute;
+            width: 100%;
+            height: 100% !important;
+        }
+
+        div.master-container .b-app-ui {
+            text-align: center;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        div.master-container .b-app-overlays #annotation-panel-popup {
+            text-align: left;
+        }
+
+        div.master-container .b-app canvas {
+            margin-top: 52px;
+        }
+
+        div.master-container .hoverText-overlay {
+            position: absolute;
+            /*width: 15%;*/
+            /*height: 2%;*/
+            background-color: white;
+            left: 50%;
+            top: 50%;
+            z-index: 5;
+            display: none;
+            pointer-events: none;
+            font-size: 1.2vw;
+            overflow: hidden;
+            padding: 8px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+            background-color: #fff;
+            background: linear-gradient(#fff 20%, #f6f6f6 50%, #eee 52%, #f4f4f4 100%);
+            background-clip: padding-box;
+            box-shadow: 0 0 3px #fff inset, 0 1px 1px rgba(0, 0, 0, 0.1);
+            color: #444;
+            text-decoration: none;
+            white-space: nowrap;
+            /*line-height: 40px;*/
+        }
+
+        div.master-container .ui-header {
+            position: absolute;
+            top: 100px;
+            width: 100%;
+            height: 50px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #707070;
+            z-index: 1;
+            pointer-events: all;
+            cursor: default;
+        }
+
+        div.master-container .search-container {
+            position: relative;
+            margin: 6px 12px;
+            width: 50%;
+            max-width: 370px;
+            text-align: left !important;
+            /*min-width: 260px;*/
+            z-index: 2 !important;
+            pointer-events: all;
+        }
+
+@media only screen and (min-width: 80em) {
+    div.master-container #details-text {
+        width: 28vw !important;
+        font-size: 1.15em !important;
+    }
+
+        div.master-container #details-text img {
+            max-width: 220px;
+        }
+}
+
+
+@media only screen and (max-width: 47.5em) and (orientation: landscape) {
+    div.master-container #ui-navlist a {
+        padding: 0 !important;
+        margin-top: 3px !important;
+    }
+
+    div.master-container .ui-slider {
+        left: 35% !important;
+    }
+    /*div.master-container .b-app {*/
+    /*min-height: 320px;*/
+    /*}*/
+}
+
+@media only screen and (max-width: 47.5em) {
+
+    div.master-container .ui-annotateMode {
+        top: 102px !important;
+    }
+
+    div.master-container .chosen-container {
+        font-size: 1em;
+    }
+
+    div.master-container .b-app {
+        min-height: 320px;
+    }
+
+        div.master-container .b-app canvas {
+            margin-top: 104px;
+        }
+
+    div.master-container #loadingbar {
+        top: 104px !important;
+    }
+
+        div.master-container #loadingbar > div {
+            height: 10px !important;
+        }
+
+    div.master-container #infoPanel-container > div > p {
+        font-size: 1em !important;
+    }
+
+    div.master-container .brain-group-section {
+        margin-left: 5% !important;
+        font-size: 1em !important;
+    }
+
+    div.master-container .brain-group-subsection {
+        margin-left: 10% !important;
+        font-size: 0.9em !important;
+    }
+
+    div.master-container .ui-header {
+        height: 104px;
+        border-bottom: 1px solid #aaaaaa;
+        text-align: center !important;
+    }
+
+    div.master-container #ui-navlist {
+        float: none !important;
+        margin-top: 50px !important;
+        display: inline-block;
+        /*clear: both;*/
+    }
+
+        div.master-container #ui-navlist li {
+            margin: 0 -1px 0 0 !important;
+            padding: 0 5px !important;
+            border: 1px solid #707070;
+            height: 49px !important;
+        }
+
+    div.master-container .search-container {
+        width: 92%;
+        display: inline-block;
+        margin: 6px 4%;
+        min-width: 260px;
+    }
+
+    div.master-container #isolate-slider-label {
+        margin-top: 18px;
+        font-size: 0.8em;
+        margin-left: 2% !important;
+    }
+
+    div.master-container .ui-slider {
+        width: 50% !important;
+        left: 45% !important;
+        padding: 0 !important;
+    }
+}
+
+
+
+div.master-container .ui-slider-track {
+    margin: 0 10%;
+}
+
+div.master-container .brain-group-parent {
+    font-weight: bolder;
+    text-transform: capitalize;
+}
+
+div.master-container .brain-group-section {
+    margin-left: 10%;
+    text-transform: capitalize;
+}
+
+div.master-container .brain-group-subsection {
+    margin-left: 20%;
+    font-size: 0.8em !important;
+    text-transform: capitalize;
+}
+
+
+div.master-container #ui-navlist {
+    margin: 0;
+    padding: 0;
+    /*min-width: 360px;*/
+    position: relative;
+    float: right;
+}
+
+    div.master-container #ui-navlist li {
+        margin: 0;
+        padding: 0;
+        border-left: 1px solid #707070;
+        list-style: none;
+        height: 50px;
+        /*display: block;*/
+        float: left;
+    }
+
+
+    div.master-container #ui-navlist a {
+        width: 60px;
+        height: 50px;
+        display: inline-block;
+        padding: 0 6px;
+    }
+
+        div.master-container #ui-navlist a.bapp-hover:hover, div.master-container #ui-navlist a.bapp-touchstart {
+            cursor: pointer;
+            background-color: #f5f5f5;
+            height: 45px;
+            border-bottom: 5px solid #f7a11a;
+        }
+
+div.master-container .button_annotate a {
+    background: url('/images/bf-3dbrain-icons1.svg') no-repeat;
+    background-position-x: 0;
+    background-position-y: 5px;
+    -moz-background-size: 500% auto;
+    -o-background-size: 500% auto;
+    -webkit-background-size: 500% auto;
+    background-size: 500% auto;
+}
+
+div.master-container .button_annotate_2 a {
+    /*width: 56px;*/
+    box-shadow: inset 0px 2px 0px 3px red;
+}
+
+    div.master-container .button_annotate_2 a:after {
+        content: 'x';
+        float: right;
+        margin-top: 2px;
+        color: red;
+    }
+
+    div.master-container .button_annotate_2 a:hover {
+        height: inherit !important;
+        border-bottom: none !important;
+        -moz-background-size: 500% auto !important;
+        -o-background-size: 500% auto !important;
+        -webkit-background-size: 500% auto !important;
+        background-size: 500% auto !important;
+    }
+
+div.master-container .button_zoom a {
+    background: url('/images/bf-3dbrain-icons1.svg') no-repeat;
+    background-position-x: 25%;
+    background-position-y: 5px;
+    -moz-background-size: 500% auto;
+    -o-background-size: 500% auto;
+    -webkit-background-size: 500% auto;
+    background-size: 500% auto;
+}
+
+div.master-container .button_zoom_2 a {
+    background-image: url('/images/bf-3dbrain-icons2.svg') !important;
+}
+
+div.master-container .button_snapshot a {
+    background: url('/images/bf-3dbrain-icons1.svg') no-repeat;
+    background-position-x: 50%;
+    background-position-y: 5px;
+    -moz-background-size: 500% auto;
+    -o-background-size: 500% auto;
+    -webkit-background-size: 500% auto;
+    background-size: 500% auto;
+}
+
+div.master-container .button_reset a {
+    background: url('/images/bf-3dbrain-icons1.svg') no-repeat;
+    background-position-x: 75%;
+    background-position-y: 5px;
+    -moz-background-size: 500% auto;
+    -o-background-size: 500% auto;
+    -webkit-background-size: 500% auto;
+    background-size: 500% auto;
+}
+
+div.master-container .button_fullscreen a {
+    background: url('/images/bf-3dbrain-icons1.svg') no-repeat;
+    background-position-x: 100%;
+    background-position-y: 5px;
+    -moz-background-size: 500% auto;
+    -o-background-size: 500% auto;
+    -webkit-background-size: 500% auto;
+    background-size: 500% auto;
+}
+
+div.master-container .button_fullscreen_2 a {
+    background-image: url('/images/bf-3dbrain-icons2.svg') !important;
+}
+
+div.master-container .icon-force-png {
+    background-image: url('/css/images/icons-36-black.png');
+    -moz-background-size: 864px 18px;
+    -o-background-size: 864px 18px;
+    -webkit-background-size: 864px 18px;
+    background-size: 864px 18px;
+    opacity: 0.7;
+}
+
+    div.master-container .icon-force-png:after {
+        background-color: transparent !important;
+    }
+
+div.master-container .icon-arrow-up {
+    background-position: -174px 50%;
+}
+
+div.master-container .icon-arrow-down {
+    background-position: -210px 50%;
+}
+
+div.master-container .ui-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #ffffff;
+    border-top: 1px solid #707070;
+    border-bottom: none !important;
+    z-index: 2;
+    pointer-events: all;
+    cursor: default;
+}
+
+div.master-container .ui-annotateMode {
+    position: absolute;
+    z-index: 3;
+    top: 51px;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    border: 5px solid red;
+    text-align: center;
+    display: none;
+}
+
+    div.master-container .ui-annotateMode span {
+        position: absolute;
+        top: 0;
+        width: 40%;
+        left: 30%;
+        text-align: center;
+        color: red;
+    }
+
+div.master-container #isolate-slider-1 {
+    display: none
+}
+
+div.master-container .iso-slider-container {
+    /*width: 100%;*/
+    /*height: 100%;*/
+    margin: 0;
+    padding: 0;
+}
+
+div.master-container .ui-slider {
+    position: absolute;
+    width: 65%;
+    left: 30%;
+    margin: 16px 0 !important;
+    /*padding: 0 40px 0 20px !important*/
+}
+
+div.master-container .ui-slider-track {
+    top: 0 !important;
+    margin: 0 8% 0 0 !important;
+}
+
+div.master-container .ui-slider-handle {
+    background-color: #f6f6f6 !important;
+}
+
+div.master-container #isolate-slider-label {
+    position: absolute;
+    margin-left: 5%;
+    min-width: 140px;
+    margin-top: 15px;
+    width: 20%;
+}
+
+div.master-container #leaderHeader {
+    position: absolute;
+    font-size: 1.3em;
+    font-weight: lighter;
+    z-index: 1;
+    pointer-events: none;
+    white-space: nowrap;
+    opacity: 0
+}
+
+div.master-container #details-text {
+    width: 260px;
+    position: absolute;
+    z-index: 1;
+    /*left: 740px;*/
+    /*top: 250px;*/
+    pointer-events: none;
+    font-size: 1em;
+    line-height: 1.5;
+    text-align: left;
+    opacity: 0;
+}
+
+    div.master-container #details-text img {
+        width: 80%;
+        position: relative;
+        left: 10%;
+    }
+
+    div.master-container #details-text a {
+        pointer-events: all;
+    }
+
+div.master-container #annotate-edit-popup {
+    -webkit-animation-duration: 400ms !important;
+    -moz-animation-duration: 400ms !important;
+    animation-duration: 400ms !important;
+}
+
+div.master-container #screenshot-share {
+    text-align: center;
+}
+
+    div.master-container #screenshot-share p {
+        margin: 20px 0;
+    }
+
+    div.master-container #screenshot-share a#ss-download {
+        float: right;
+    }
+
+    div.master-container #screenshot-container > img {
+        height: 100%;
+    }
+
+div.master-container #annotate-edit {
+    margin-top: -40%;
+}
+
+    div.master-container #annotate-edit form {
+        padding: 10px 20px;
+    }
+
+div.master-container #add-button {
+    width: 65px;
+    margin: 20px auto 10px auto;
+}
+
+div.master-container #extarea-annotation {
+    height: auto !important;
+}
+
+div.master-container .ui-icon-draggy:after {
+    background-image: url("/css/images/draggy.svg");
+}
+
+div.master-container #annotation-panel-screen {
+    pointer-events: none;
+}
+
+div.master-container #loadingbar {
+    position: absolute;
+    width: 100%;
+    top: 52px;
+    display: none;
+}
+
+    div.master-container #loadingbar > div {
+        position: relative;
+        width: 100%;
+        height: 5px;
+        border-bottom: 1px solid rgba(0,0,0,.1);
+        overflow: hidden;
+        background-color: rgba(0,0,0,.05);
+        margin: 0 auto;
+    }
+
+        div.master-container #loadingbar > div span {
+            width: 100%;
+            height: 100%;
+            background-color: #c92846;
+            opacity: 0.8;
+            position: absolute;
+            left: -100%;
+        }
+
+div.master-container #intro-container {
+    color: #939192;
+    padding: 5vh 5vw 5vh 5vw;
+    background-color: rgba(255,255,255,0.9);
+}
+
+div.master-container .search-container *, .ui-popup-container *, #intro-container-popup, .hoverText-overlay, .icon-force-png {
+    -moz-transition: none !important;
+    -webkit-transition: none !important;
+    transition: none !important;
+}
+
+div.master-container #intro-container > img {
+    position: absolute;
+    display: none;
+    top: 0;
+    max-height: none;
+    max-width: 280px;
+}
+
+div.master-container #intro-container > a {
+    color: #939192;
+    float: right;
+}
+
+div.master-container #intro-dummy, div.master-container #annPanel-dummy {
+    position: absolute;
+    left: 40%;
+    top: 30%;
+    z-index: 5;
+    background-color: black;
+}
+
+div.master-container #annotation-panel {
+    cursor: move;
+}
+
+div.master-container #infoPanel-container {
+    position: absolute;
+    max-height: 30%;
+    height: inherit;
+    width: 94%;
+    left: 3%;
+    margin-bottom: 52px;
+    bottom: 0;
+    z-index: 1;
+    /*transform: translateY(0%);*/
+    background-color: #ffffff;
+    pointer-events: all;
+    text-shadow: 0 1px 0 #f3f3f3;
+    text-align: center;
+    overflow: hidden;
+    opacity: 0.85;
+}
+
+div.master-container .infoPanel-closed {
+    background-color: unset !important;
+    opacity: 0.3 !important;
+    /*transform: translateY(10%) !important;*/
+    /*overflow-y: hidden !important;*/
+    pointer-events: none !important;
+    height: 12% !important;
+}
+
+div.master-container #infoPanel-container > a {
+    position: absolute;
+    margin-left: -0.875em;
+    margin-top: 0.5em;
+    z-index: 4;
+    pointer-events: all !important;
+    /*margin-top: -0.8em;*/
+    /*left: 50%;*/
+    /*top: 0;*/
+}
+
+div.master-container #infoPanel-container > h1 {
+    position: absolute;
+    z-index: 3;
+    background-color: inherit;
+    font-size: 1.2em;
+    padding: 2em 0 0.5em 0;
+    margin: 0;
+    width: 100%;
+    pointer-events: none;
+    box-shadow: 0 0 8px 8px white;
+    opacity: 0;
+}
+
+div.master-container #infoPanel-container #panel-fadeoverlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 5.5em 1.5em 0.5em 1.5em;
+    pointer-events: none;
+    box-shadow: 0 0 8px 8px white inset;
+}
+
+div.master-container .infoPanel-closed #panel-fadeoverlay {
+    box-shadow: none !important;
+}
+
+div.master-container #infoPanel-container #panel-details {
+    position: relative;
+    max-height: 50%;
+    overflow-y: scroll !important;
+    padding: 5em 1.5em 0.5em 1.5em;
+    opacity: 0;
+}
+
+    div.master-container #infoPanel-container #panel-details p {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+
+    div.master-container #infoPanel-container #panel-details img {
+        width: 100%;
+        margin-bottom: 1em;
+    }
+
+    div.master-container #infoPanel-container #panel-details > p {
+        padding-bottom: 1em;
+        margin: 0;
+        text-align: left;
+    }
+
+
+.ui-loader {
+    display: none !important;
+}
+
+a {
+    cursor: pointer;
+}
