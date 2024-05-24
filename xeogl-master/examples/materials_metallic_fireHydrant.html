@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>xeogl Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <script src="../build/xeogl.js"></script>
+
+    <script src="js/geometry/k3d.js"></script>
+    <script src="js/geometry/objGeometryLoader.js"></script>
+
+    <link href="css/styles.css" rel="stylesheet"/>
+
+<body>
+
+<div id="info">
+    <h1>
+        Physically-based rendering using <a href="../docs/classes/MetallicMaterial.html"
+                                            target="_parent">MetallicMaterial</a></h1>
+    <pre id="log">model: OBJ fire hydrant with PBR textures - [<a
+            href='https://github.com/xeolabs/xeogl/tree/master/examples/models/obj/fireHydrant/README.md'
+            target="_parent">model info</a>]</pre>
+</div>
+<div id="dat-gui-container">
+</div>
+
+<script>
+
+    var scene = xeogl.getDefaultScene();
+    var camera = scene.camera;
+
+    scene.clearLights();
+
+    new xeogl.DirLight({
+        id: "keyLight",
+        dir: [0.8, -0.6, -0.8],
+        color: [0.8, 0.8, 0.8],
+        intensity: 1.0,
+        space: "world"
+    });
+
+    new xeogl.DirLight({
+        id: "fillLight",
+        dir: [-0.8, -0.4, -0.4],
+        color: [0.99, 0.7, 0.7],
+        intensity: 1.0,
+        space: "world"
+    });
+
+    new xeogl.DirLight({
+        id: "rimLight",
+        dir: [0.2, -0.8, 0.8],
+        color: [0.6, 0.89, 0.89],
+        intensity: 1.0,
+        space: "world"
+    });
+
+    new xeogl.LightMap({
+        src: [
+            "textures/light/Uffizi_Gallery/Uffizi_Gallery_Irradiance_PX.png",
+            "textures/light/Uffizi_Gallery/Uffizi_Gallery_Irradiance_NX.png",
+            "textures/light/Uffizi_Gallery/Uffizi_Gallery_Irradiance_PY.png",
+            "textures/light/Uffizi_Gallery/Uffizi_Gallery_Irradiance_NY.png",
+            "textures/light/Uffizi_Gallery/Uffizi_Gallery_Irradiance_PZ.png",
+            "textures/light/Uffizi_Gallery/Uffizi_Gallery_Irradiance_NZ.png"
+        ],
+        encoding: "linear"
+    });
+
+    new xeogl.ReflectionMap({
+        src: [
+            "textures/reflect/Uffizi_Gallery/Uffizi_Gallery_Radiance_PX.png",
+            "textures/reflect/Uffizi_Gallery/Uffizi_Gallery_Radiance_NX.png",
+            "textures/reflect/Uffizi_Gallery/Uffizi_Gallery_Radiance_PY.png",
+            "textures/reflect/Uffizi_Gallery/Uffizi_Gallery_Radiance_NY.png",
+            "textures/reflect/Uffizi_Gallery/Uffizi_Gallery_Radiance_PZ.png",
+            "textures/reflect/Uffizi_Gallery/Uffizi_Gallery_Radiance_NZ.png"
+        ],
+        encoding: "sRGB"
+    });
+
+    xeogl.loadOBJGeometry(scene, "models/obj/fireHydrant/FireHydrantMesh.obj", function (geometry) {
+
+        var hydrant = new xeogl.Mesh({
+
+            geometry: geometry,
+
+            material: new xeogl.MetallicMaterial({
+                baseColor: [1, 1, 1],
+                metallic: 1.0,
+                roughness: 1.0,
+                baseColorMap: new xeogl.Texture({
+                    src: "models/obj/fireHydrant/fire_hydrant_Base_Color.png",
+                    encoding: "sRGB"
+                }),
+                normalMap: new xeogl.Texture({
+                    src: "models/obj/fireHydrant/fire_hydrant_Normal_OpenGL.png"
+                }),
+                roughnessMap: new xeogl.Texture({
+                    src: "models/obj/fireHydrant/fire_hydrant_Roughness.png"
+                }),
+                metallicMap: new xeogl.Texture({
+                    src: "models/obj/fireHydrant/fire_hydrant_Metallic.png"
+                }),
+                occlusionMap: new xeogl.Texture({
+                    src: "models/obj/fireHydrant/fire_hydrant_Mixed_AO.png"
+                }),
+                specularF0: 0.7
+            }),
+            scale: [40, 40, 40]
+        });
+
+        camera.orbitPitch(20); // Orbit camera a bit
+        camera.orbitYaw(300); // Orbit camera a bit
+
+        var spinning = true;
+
+        (new xeogl.CameraFlightAnimation()).jumpTo({
+            aabb: hydrant.aabb,
+            fit: true,
+            fitFOV: 45
+        });
+
+        camera.orbitYaw(180);
+
+        scene.on("tick", function () { // Start orbiting the camera
+            if (spinning) {
+                camera.orbitYaw(-0.1);
+                //    hydrant.scene.camera.zoom(-.05);
+            }
+        });
+
+        new xeogl.CameraControl(); // Allow user camera control
+    });
+
+</script>
+</body>
+</html>

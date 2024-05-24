@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>xeogl Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <link href="css/styles.css" rel="stylesheet"/>
+
+    <script src="../build/xeogl.js"></script>
+    <script src="js/models/buildableModel.js"></script>
+    <script src="js/models/testModel.js"></script>
+    <script src="js/animation/cameraFollowAnimation.js"></script>
+
+<body>
+
+<div id="info">
+    <h1>using a <a href="../docs/classes/TestModel.html" target="_parent">TestModel</a> to procedurally generate simple content for development and testing</h1>
+</div>
+
+<script>
+    
+    var model = new xeogl.TestModel({
+        size: 1000,
+        density: 10
+    });
+    
+    new xeogl.CameraFollowAnimation({
+        target: model,
+        fit: true,
+        fitFOV: 55
+    });
+    
+    new xeogl.CameraControl({
+        firstPerson: true
+    });
+
+    var camera = model.scene.camera;
+
+    camera.orbitPitch(10);
+
+
+</script>
+</body>
+</html>

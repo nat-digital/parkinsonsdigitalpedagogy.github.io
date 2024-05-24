@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>xeogl - Examples</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Exo+2:400,800,900,700,600,500|Roboto:100,300,400,500,700,900'
+          rel='stylesheet' type='text/css'>
+
+    <link href="css/styles.css" rel="stylesheet"/>
+    <link href="libs/perfect-scrollbar.css" rel="stylesheet"/>
+    <script src="libs/perfect-scrollbar.min.js"></script>
+
+</head>
+<body>
+
+<div id="contents" class="container">
+    <div id="list" class="content">
+        <h1><a href="../index.html">xeogl</a> / Examples</h1>
+    </div>
+</div>
+
+<iframe id="viewer"></iframe>
+
+<script>
+
+    window.onload = function () {
+        var div = document.getElementById('contents');
+        Ps.initialize(div);
+    };
+
+    // Translations for tweeted links
+    // TODO: Some of these are now dead after rewrite
+
+    var publishedLinks = {
+        "animation_CameraFlightAnimation_Entity": "animation_camera_flyTo_entity",
+        "animation_CameraFlightAnimation_Boundary3D": "animation_camera_flyTo_boundary",
+        "animation_CameraFlightAnimation_AABB": "animation_camera_flyTo_aabb",
+        "animation_CameraFollowAnimation": "animation_camera_follow_entity",
+        "animation_CameraFollowAnimation_fitToView": "animation_camera_follow_entity_fitToView",
+        "animation_CameraPathAnimation_interpolate": "animation_camera_path_interpolation",
+        "animation_CameraPathAnimation_flyToFrame": "animation_camera_path_flyToFrame",
+        "animation_CameraPathAnimation_scrubToFrame": "animation_camera_path_scrubToFrame",
+        "animation_CameraPathAnimation_frameMenu": "animation_camera_path_frameMenu",
+        "boundaries_Entity_worldBoundary_aabb": "boundaries_entity_aabb",
+        "boundaries_Entity_worldBoundary_obb": "boundaries_entity_obb",
+        "boundaries_Entity_worldBoundary_sphere": "boundaries_entity_world_sphere",
+        "boundaries_Entity_localBoundary_aabb": "boundaries_geometry_aabb",
+        "boundaries_Model_worldBoundary_aabb": "boundaries_model_aabb",
+        "boundaries_flyToBoundary": "animation_camera_flyTo_entity2",
+        "demos_ui_explorer": "importing_gltf_explorer",
+        "demos_1": "demos_1",
+        "demos_2": "demos_2",
+        "geometry_teapot": "geometry_primitives_teapot",
+        "geometry_OBJGeometry_raptor": "importing_obj_raptor",
+        "geometry_Nintendo3DSGeometry_lexus": "importing_obj_lexus",
+        "geometry_VectorTextGeometry": "geometry_primitives_VectorText",
+        "geometry_csg_example1": "geometry_generation_csg",
+        "generation_GeometryBuilder_wavyBlocks": "geometry_generation_wavyBlocks",
+        "interaction_picking": "interaction_picking",
+        "interaction_picking_disabling": "interaction_picking_disabling",
+        "interaction_picking_triangles": "interaction_picking_triangles",
+        "interaction_picking_triangles_normalAndUV": "interaction_picking_triangles_normalAndUV",
+        "interaction_picking_performance": "interaction_picking_performance",
+        "lights_point_world": "environments_lighting_point_world_normalMap",
+        "models_GLTFModel": "importing_gltf_gearbox",
+        "models_SceneJSModel_pojo_textures": "importing_scenejs_pojo_textures",
+        "models_SceneJSModel_pojo_transparency": "importing_scenejs_pojo_transparency",
+        "models_SceneJSModel_json_textures": "importing_scenejs_json_textures",
+        "models_SceneJSModel_tronTank": "importing_scenejs_tronTank",
+        "models_Model_configureTransform": "transforms_model_configureTransform",
+        "models_Model_attachTransform": "transforms_model_attachTransform",
+        "models_Model_uniqueMaterials": "models_filter_uniqueMaterials",
+        "models_Model_bakeTransforms": "models_filter_bakeTransforms",
+        "models_BuildableModel_city": "models_generation_city",
+        "scene_multipleScenes": "scenes_multipleScenes",
+        "importing_obj_raptor": "importing_obj_geometry_raptor",
+        "importing_obj_CyberCity3D": "importing_obj_geometry_CyberCity3D",
+        "importing_gltf_pbr_metallic_helmet": "importing_gltf_DamagedHelmet",
+        "effects_explodeXRayOutline": "effects_demo_sportscar"
+    };
+
+    var files = {
+
+        "Annotations": [
+            "annotations_tronTank",
+            "annotations_annotationStory_tronTank"
+        ],
+        "Billboards": [
+            "billboards_cylindrical",
+            "billboards_spherical",
+            "billboards_spherical_clouds"
+        ],
+        "Boundaries": [
+            "boundaries_mesh_aabb",
+            "boundaries_model_aabb",
+            "boundaries_scene_aabb",
+            "effects_demo_hoverToShowAABB"
+        ],
+        "Camera": [
+            "camera_CameraControl",
+            "camera_perspective",
+            "camera_frustum",
+            "camera_orthographic",
+            "camera_customProjection",
+            "camera_deviceMatrix",
+            "camera_zAxisUp",
+            "camera_yAxisUp",
+            "camera_flight",
+            "camera_follow",
+            "camera_path_frameMenu",
+            "camera_path_interpolation",
+            "camera_path_flyToFrame",
+            "camera_path_scrubToFrame"
+        ],
+        "Canvas": [
+            "canvas_moving",
+            "canvas_transparent",
+            "canvas_snapshot_asynchronous",
+            "canvas_snapshot_synchronous",
+            "canvas_fullScreen"
+        ],
+        "Effects": [
+            "effects_clipping",
+            "effects_colorize",
+//            "effects_outline",
+            "effects_ghost",
+            "effects_ghost_materials",
+            "effects_highlight",
+            "effects_stereo",
+            "effects_stereo_custom",
+//            "effects_zSpace_gearbox",
+            "effects_demo_hoverToColorize",
+            "effects_demo_hoverToSetOpacity",
+            "effects_demo_hoverToHighlight",
+            "effects_demo_hoverToSelect",
+            "effects_demo_hoverToGhost",
+            "effects_demo_hoverToUnghost",
+            "effects_demo_hoverToShowEdges",
+            "effects_demo_hoverToShowAABB",
+            "effects_demo_housePlan",
+            "effects_demo_gearbox",
+            "effects_demo_adam",
+            "effects_demo_sportscar"
+        ],
+        "Extending": [
+            "extending_component_basic",
+            "extending_component_changeEvents",
+            "extending_component_childCleanup"
+        ],
+        "Featured": [
+            "importing_gltf_pbr_metallic_helmet",
+            "materials_metallic_fireHydrant",
+            "importing_gltf_explorer",
+            "importing_scenejs_tronTank",
+            "importing_obj_CyberCity3D",
+            "featured_AdamHead",
+            "featured_VianneyHouse2",
+            "featured_VanGoghRoom"
+        ],
+        "Geometry": [
+            "geometry_simpleTriangle",
+            "geometry_triangles",
+            "geometry_triangles_texture",
+            "geometry_triangles_vertexColors",
+            "geometry_lines",
+            "geometry_points",
+            "geometry_primitives_box",
+            "geometry_primitives_cylinder",
+            "geometry_primitives_plane",
+            "geometry_primitives_sphere",
+            "geometry_primitives_teapot",
+            "geometry_primitives_torus",
+            "geometry_primitives_vectorText",
+            "geometry_primitives_AABBGeometry",
+            "geometry_primitives_OBBGeometry",
+            "geometry_generation_csg",
+            "geometry_generation_wavyBlocks"
+        ],
+        "Helpers": [
+            "helpers_axisHelper",
+            "helpers_AABBHelper"
+        ],
+        "Importing": [
+            "importing_gltf_Triangle",
+            "importing_gltf_TriangleWithoutIndices",
+            "importing_gltf_SimpleMeshes",
+            "importing_gltf_explorer",
+            "importing_gltf_2CylinderEngine",
+            "importing_gltf_AdamHead",
+            "importing_gltf_BoomBox",
+            "importing_gltf_Hoverbike",
+            "importing_gltf_DamagedHelmet",
+            "importing_gltf_ReciprocatingSaw",
+            "importing_gltf_GearboxAssy",
+            "importing_gltf_BananaTree",
+            "importing_gltf_Schependomlaan",
+            "importing_gltf_WestRiverSideHospital",
+            "importing_gltf_OfficePlan",
+            "importing_gltf_BranchHouse",
+            "importing_gltf_ModernOffice",
+            "importing_gltf_MetalRoughSpheres",
+            "importing_gltf_Nerves",
+            "importing_gltf_embedded",
+            "importing_gltf_parsing",
+            "importing_gltf_parsing_embedded",
+            "importing_gltf_options_ignoreMaterials",
+            "importing_gltf_options_lambertMaterials",
+            "importing_gltf_options_maxPerformance",
+            "importing_scenejs_pojo_textures",
+            "importing_scenejs_pojo_transparency",
+            "importing_scenejs_json_textures",
+            "importing_scenejs_tronTank",
+            "importing_obj_people",
+            "importing_obj_conferenceRoom",
+            "importing_obj_geometry_raptor",
+            "importing_obj_geometry_CyberCity3D",
+            "importing_obj_parsing",
+            "importing_3ds_lexus",
+            "importing_stl_shapes",
+            "importing_stl_F1Concept",
+            "importing_stl_gear"
+        ],
+        "Lights": [
+            "lights_ambient",
+            "lights_directional_view_threePoint",
+            "lights_directional_world_threePoint",
+            "lights_point_view_threePoint",
+            "lights_point_world_threePoint",
+            "lights_point_world_normalMap",
+            "lights_lightMap"
+//            ,
+//            "lights_shadows"
+        ],
+        "Logging": [
+            "logging_logging"
+        ],
+        "Materials": [
+            "materials_metallic_torus",
+            "materials_metallic_fireHydrant",
+            "materials_metallic_samples_metals",
+            "materials_metallic_textures",
+            "materials_metallic_metallicVsRoughness",
+            "materials_specular_Hoverbike",
+            "materials_specular_samples",
+            "materials_specular_textures",
+            "materials_specular_specularVsGlossiness",
+            "materials_phong_textures",
+            "materials_phong_textures_video",
+            "materials_phong_textures_video_normalMap",
+            "materials_phong_textures_normalMap",
+            "materials_phong_fresnel",
+            "materials_lambert"
+        ],
+        "Models": [
+            "models_generation_city",
+            "models_generation_TestModel"
+        ],
+        "Objects": [
+            "objects_hierarchy",
+            "objects_hierarchy_models",
+            "objects_entities"
+        ],
+        "Picking": [
+            "picking_canvas_pickMesh",
+            "picking_canvas_pickSurface",
+            "picking_canvas_performanceTest",
+            "picking_raycast_pickMesh",
+            "picking_raycast_pickSurface",
+            "picking_disabling",
+            "picking_masking_includeMeshes",
+            "picking_masking_excludeMeshes"
+        ],
+        "Profiling": [
+            "profiling_statistics"
+        ],
+        "Scenes": [
+            "scenes_events_tick",
+            "scenes_components_instantiating",
+            "scenes_components_instantiating2",
+            "scenes_components_events",
+            "scenes_components_finding_byID",
+            "scenes_components_finding_byType",
+            "scenes_multipleScenes"
+        ],
+        "Skyboxes": [
+            "skyboxes_skybox",
+            "skyboxes_skybox_custom"
+        ],
+        "Tests": [
+            "tests_sceneCreateDestroy",
+            "tests_WebGLContextLostRecovery"
+        ],
+        "Transforms": [
+            "transforms_object_hierarchy",
+            "transforms_model"
+        ]
+    };
+
+    //
+
+    var list = document.getElementById('list');
+    var viewer = document.getElementById('viewer');
+
+    var container = document.createElement('div');
+    list.appendChild(container);
+
+    var sourceButton = document.createElement('div');
+    sourceButton.id = 'sourceButton';
+    sourceButton.textContent = 'View source';
+
+    sourceButton.addEventListener('click', function (event) {
+        window.open('https://github.com/xeolabs/xeogl/blob/master/examples/' + selected + '.html');
+    }, false);
+
+    sourceButton.style.display = 'none';
+    document.body.appendChild(sourceButton);
+
+    var catDivs = {};
+    var divs = {};
+    var selected = null;
+    var index = 1;
+    var indexStr;
+
+    // Table of contents
+    var div = document.createElement('h2');
+    div.textContent = "Contents";
+
+    container.appendChild(div);
+    container.appendChild(document.createElement('hr'));
+
+    for (var key in files) {
+        var section = files[key];
+        var div = document.createElement('div');
+        div.className = 'link';
+        indexStr = "" + index++ + ".";
+        for (var i = indexStr.length, len = 5; i < len; i++) {
+            indexStr += ".";
+        }
+        div.textContent = indexStr + key;
+        div.addEventListener('click', (function () {
+            var k = key;
+            return function () {
+                catDivs[k].scrollIntoView();
+            }
+        })());
+        container.appendChild(div);
+    }
+
+    container.appendChild(document.createElement('hr'));
+
+    _index = 1;
+
+    var clickedFile = null;
+
+    for (var key in files) {
+        var section = files[key];
+        var div = document.createElement('h2');
+        div.textContent = _index++ + ". " + key;
+        container.appendChild(div);
+        catDivs[key] = div;
+        for (var i = 0; i < section.length; i++) {
+            var file = section[i];
+            if (false && file.charAt(0) == "#") {
+                var div = document.createElement('div');
+                //div.textContent = "// " + file.substring(1);
+                div.textContent = "";
+                div.className = (i == 0 ? 'infoFirst' : 'info');
+                container.appendChild(div);
+                continue;
+            }
+            (function (file) {
+                var name = file.split('_');
+                name.shift();
+                name = name.join(' / ');
+                var div = document.createElement('div');
+                div.className = 'link';
+                div.textContent = name; // expandCamel(name);
+                div.addEventListener('click', function () {
+                    clickedFile = file;
+                    window.location.hash = "#" + file;
+                });
+                container.appendChild(div);
+                divs[file] = div;
+            })(file);
+        }
+    }
+
+    function expandCamel(str) {
+        return str.replace(/([A-Z])/g, function ($1) {
+            return " " + $1.toLowerCase();
+        });
+    }
+
+    var load = function (file) {
+
+        file = publishedLinks[file] || file;
+
+        if (file.indexOf(".html", file.length - 5) !== -1) {
+            window.location = "./" + file + ".html";
+            return;
+        }
+
+        if (selected !== null) divs[selected].className = 'link';
+        divs[file].className = 'link selected';
+        window.location.hash = file;
+        viewer.src = file + '.html';
+        viewer.focus();
+        sourceButton.style.display = '';
+        selected = file;
+        if (clickedFile !== file) {
+            scrollIntoView(divs[file]);
+        }
+        clickedFile = null;
+    };
+
+    if (window.location.hash !== '') {
+        load(window.location.hash.substring(1));
+    }
+
+    var hash = window.location.hash;
+
+    window.setInterval(function () {
+        if (window.location.hash != hash) {
+            load(window.location.hash.substring(1));
+            hash = window.location.hash;
+        }
+    }, 200);
+
+    function scrollIntoView(div) {
+        document.getElementById("contents").scrollTop = documentOffsetTop(div) - (window.innerHeight / 6 );
+    }
+
+    function documentOffsetTop(div) {
+        return div.offsetTop + ( div.offsetParent ? documentOffsetTop(div.offsetParent) : 0 );
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>xeogl Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <script src="../build/xeogl.js"></script>
+
+    <script src="js/models/STLModel.js"></script>
+
+    <link href="css/styles.css" rel="stylesheet"/>
+
+<body>
+
+<div id="info">
+    <h1><a href="../docs/classes/STLModel.html" target="_parent">STLModel</a> - importing binary and ASCII-encoded STL
+    </h1>
+    <pre id="log">PR2 head model from <a href='http://wiki.ros.org/pr2_description'
+                                         target="_parent">www.ros.org</a></pre>
+</div>
+
+<script>
+
+    // Load ASCII STL model
+
+    var slottedDDiskModel = new xeogl.STLModel({
+        src: "models/stl/ascii/slotted_disk.stl",
+        smoothNormals: true,
+        position: [0, -0.25, 0.6],
+        rotation: [0, 0, -90],
+        scale: [.5, .5, .5]
+    });
+
+    // Load binary STL models
+
+    var coloredModel = new xeogl.STLModel({
+        src: "models/stl/binary/colored.stl",
+        smoothNormals: true,
+        position: [0.5, 0.2, 0],
+        rotation: [0, 0, -90],
+        scale: [.3, .3, .3]
+    });
+
+    var headPanModel = new xeogl.STLModel({
+        src: "models/stl/binary/pr2_head_pan.stl",
+        smoothNormals: true,
+        smoothNormalsAngleThreshold: 40,
+        position: [0, -0.37, -0.6],
+        rotation: [-90, 0, 0],
+        scale: [2, 2, 2]
+    });
+
+    var headTiltModel = new xeogl.STLModel({
+        src: "models/stl/binary/pr2_head_tilt.stl",
+        smoothNormals: true,
+        smoothNormalsAngleThreshold: 40,
+        position: [0.136, -0.37, -0.6],
+        rotation: [-90, 0, 0],
+        scale: [2, 2, 2]
+    });
+
+    // Ground plane
+
+    new xeogl.Mesh({
+        geometry: new xeogl.PlaneGeometry({
+            xSize: 3,
+            zSize: 3
+        }),
+        material: new xeogl.PhongMaterial({
+            shininess: 170,
+            specular: [0, -0.37, -0.6],
+            diffuseMap: new xeogl.Texture({
+                src: "textures/diffuse/UVCheckerMap11-1024.png",
+                scale: [-5.0, 5.0]
+            }),
+            xalpha: 0.99,
+            backfaces: false
+        }),
+        position: [0, -0.5, 0],
+        collidable: false,
+        pickable: false
+    });
+
+    // User camera control
+
+    new xeogl.CameraControl();
+
+    // Initial camera position
+
+    var scene = xeogl.getDefaultScene();
+    var camera = scene.camera;
+
+    camera.eye = [-1.25, -0.082, -1.02];
+    camera.look = [0.21, -0.08, -0.15];
+    camera.up = [0.00, 0.99, 0.00];
+
+    // Orbit camera
+
+    scene.on("tick", function () {
+        camera.orbitYaw(-0.2);
+    });
+
+</script>
+</body>
+</html>

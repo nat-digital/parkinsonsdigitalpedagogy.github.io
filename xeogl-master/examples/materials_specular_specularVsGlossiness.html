@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>xeogl Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <script src="../build/xeogl.js"></script>
+
+    <script src="js/skyboxes/skybox.js"></script>
+    <script src="js/geometry/vectorTextGeometry.js"></script>
+
+    <script src="js/libs/dat.gui.min.js"></script>
+
+
+    <link href="css/styles.css" rel="stylesheet"/>
+
+<body>
+
+<div id="info">
+    <h1><a href="../docs/classes/SpecularMaterial.html"
+           target="_parent">SpecularMaterials</a> - specular VS glossiness</h1>
+</div>
+<div id="dat-gui-container">
+</div>
+
+<script>
+
+
+    //-----------------------------------------------------------------------------------------------------
+    // Environment
+    //-----------------------------------------------------------------------------------------------------
+
+    var skybox = new xeogl.Skybox({
+        src: "textures/skybox/uffizi_vert_cross.jpg",
+        active: false
+    });
+
+    var scene = xeogl.getDefaultScene();
+    scene.clearLights();
+
+    new xeogl.DirLight({
+        id: "keyLight",
+        dir: [0.8, -0.6, -0.8],
+        color: [0.8, 0.8, 0.8],
+        intensity: 1.0,
+        space: "world"
+    });
+
+    new xeogl.DirLight({
+        id: "fillLight",
+        dir: [-0.8, -0.4, -0.4],
+        color: [0.4, 0.4, 0.5],
+        intensity: 1.0,
+        space: "world"
+    });
+
+    new xeogl.DirLight({
+        id: "rimLight",
+        dir: [0.2, -0.8, 0.8],
+        color: [0.8, 0.8, 0.8],
+        intensity: 1.0,
+        space: "world"
+    });
+
+    var lightMap = new xeogl.LightMap({
+        src: [
+            "textures/light/Uffizi_Gallery/Uffizi_Gallery_Irradiance_PX.png",
+            "textures/light/Uffizi_Gallery/Uffizi_Gallery_Irradiance_NX.png",
+            "textures/light/Uffizi_Gallery/Uffizi_Gallery_Irradiance_PY.png",
+            "textures/light/Uffizi_Gallery/Uffizi_Gallery_Irradiance_NY.png",
+            "textures/light/Uffizi_Gallery/Uffizi_Gallery_Irradiance_PZ.png",
+            "textures/light/Uffizi_Gallery/Uffizi_Gallery_Irradiance_NZ.png"
+        ]
+    });
+
+    var reflectionMap = new xeogl.ReflectionMap({
+        src: [
+            "textures/reflect/Uffizi_Gallery/Uffizi_Gallery_Radiance_PX.png",
+            "textures/reflect/Uffizi_Gallery/Uffizi_Gallery_Radiance_NX.png",
+            "textures/reflect/Uffizi_Gallery/Uffizi_Gallery_Radiance_PY.png",
+            "textures/reflect/Uffizi_Gallery/Uffizi_Gallery_Radiance_NY.png",
+            "textures/reflect/Uffizi_Gallery/Uffizi_Gallery_Radiance_PZ.png",
+            "textures/reflect/Uffizi_Gallery/Uffizi_Gallery_Radiance_NZ.png"
+        ]
+    });
+
+    //--------------------------------------------------------------------------------------
+    //  Spheres
+    //--------------------------------------------------------------------------------------
+
+    var steps = 4;
+    var inc = 4;
+    var width = steps * inc;
+    var halfSide = width / 2;
+    var min = -halfSide;
+    var max = halfSide;
+    var specular = 0;
+    var specularInc = 1.0 / steps;
+    var glossiness = 0;
+    var glossinessInc = 1.0 / steps;
+    var material;
+    var meshes = [];
+
+    var geometry = new xeogl.SphereGeometry({
+        radius: 1.7,
+        heightSegments: 60,
+        widthSegments: 60
+    });
+
+    for (var x = min; x <= max; x += inc) {
+
+        specular = 0;
+
+        for (var y = max; y >= min; y -= inc) {
+
+            meshes.push(new xeogl.Mesh({
+                geometry: geometry,
+                material: new xeogl.SpecularMaterial({
+                    diffuse: [0.6, 0.6, 0.6],
+                    specular: [specular, specular, specular],
+                    glossiness: glossiness,
+                    alpha: 1
+                }),
+                position: [x, y, 0]
+            }));
+
+            specular += specularInc;
+        }
+
+        glossiness += glossinessInc;
+    }
+
+    //--------------------------------------------------------------------------------------
+    //  Axis labels
+    //--------------------------------------------------------------------------------------
+
+    var labelMaterial = new xeogl.PhongMaterial({
+        emissive: [1, 1, 1],
+        ambient: [0, 0, 0],
+        diffuse: [0, 0, 0],
+        lineWidth: 2
+
+    });
+
+    new xeogl.Mesh({
+        geometry: new xeogl.VectorTextGeometry({
+            text: "0 ----------- Glossiness ----------> 1",
+            size: .5
+        }),
+        material: labelMaterial,
+        position: [min, min - inc, 0],
+        collidable: false
+    });
+
+    new xeogl.Mesh({
+        geometry: new xeogl.VectorTextGeometry({
+            text: "[0,0,0] --------- Specular -------> [1,1,1]",
+            size: .5
+        }),
+        material: labelMaterial,
+        rotation: [0, 0, 270],
+        position: [min - inc, max, 0],
+        collidable: false
+    });
+
+    //--------------------------------------------------------------------------------------
+    //  Camera setup
+    //--------------------------------------------------------------------------------------
+
+    new xeogl.CameraControl(); // Allow user camera interaction
+
+    var camera = scene.camera; // Move eye position back a bit
+    camera.eye = [0, 0, 30];
+
+    //------------------------------------------------------------------------------------------------------------------
+    //  GUI
+    //------------------------------------------------------------------------------------------------------------------
+
+    (function () {
+
+        var mesh = meshes[0];
+        var material = mesh.material;
+
+        var Menu = function () {
+
+            this.message = "xeogl.MetallicMaterial";
+
+            this["diffuse"] = typedToJS(material.diffuse);
+            this["emissive"] = typedToJS(material.emissive);
+            this["alpha"] = material.alpha;
+            this["skybox"] = !!skybox.active;
+
+            var self = this;
+
+            var update = function () {
+
+                for (var i = 0; i < meshes.length; i++) {
+
+                    mesh = meshes[i];
+                    var material = mesh.material;
+
+                    material.diffuse = JSToTyped(self["diffuse"]);
+                    material.emissive = JSToTyped(self["emissive"]);
+                    material.alpha = self["alpha"];
+                    material.alphaMode = (material.alpha < 1) ? "blend" : "opaque";
+
+                    if (self["skybox"] !== skybox.active) {
+                        skybox.active = self["skybox"];
+                    }
+                }
+
+                requestAnimationFrame(update);
+            };
+
+            update();
+        };
+
+        var gui = new dat.GUI({autoPlace: false, width: 300});
+
+        document.getElementById('dat-gui-container').appendChild(gui.domElement);
+
+        var menu = new Menu();
+
+        var materialFolder = gui.addFolder('MetallicMaterial');
+        materialFolder.addColor(menu, 'diffuse', [255, 255, 255]);
+        materialFolder.addColor(menu, 'emissive', [0, 0, 0]);
+        materialFolder.add(menu, 'alpha', 0.0, 1.0);
+        materialFolder.open();
+
+        var lightsFolder = gui.addFolder('Environment');
+        lightsFolder.add(menu, 'skybox', true);
+        lightsFolder.open();
+
+        function typedToJS(arry) {
+            return [arry[0] * 255, arry[1] * 255, arry[2] * 255];
+        }
+
+        function JSToTyped(arry) {
+            return [arry[0] / 255, arry[1] / 255, arry[2] / 255];
+        }
+
+    })();
+
+</script>
+</body>
+</html>

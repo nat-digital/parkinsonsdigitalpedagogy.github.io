@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>xeogl Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <script src="../build/xeogl.js"></script>
+
+    <link href="css/styles.css" rel="stylesheet"/>
+
+<body>
+
+<div id="info">
+    <h1>three-point lighting with World-space <a href="../docs/classes/PointLight.html"
+                                                 target="_parent">PointLights</a></h1>
+</div>
+
+<script>
+
+    // Lights
+
+    var scene = xeogl.getDefaultScene();
+    scene.clearLights();
+
+    new xeogl.PointLight({
+        id: "keyLight",
+        pos: [-80, 60, 80],
+        color: [1.0, 0.3, 0.3],
+        intensity: 1.0,
+        space: "world",
+
+        shadow: new xeogl.Shadow({
+            resolution: [1000, 1000],
+            intensity: 0.7,
+            sampling: "poisson"
+        })
+    });
+
+    new xeogl.PointLight({
+        id: "fillLight",
+        pos: [80, 40, 40],
+        color: [0.3, 1.0, 0.3],
+        intensity: 1.0,
+        space: "world"
+    });
+
+    new xeogl.PointLight({
+        id: "rimLight",
+        pos: [-20, 80, -80],
+        color: [0.6, 0.6, 0.6],
+        intensity: 1.0,
+        space: "world"
+    });
+
+    // Sphere
+
+    new xeogl.Mesh({
+        geometry: new xeogl.SphereGeometry({
+            radius: 2.0
+        }),
+        material: new xeogl.PhongMaterial({
+            diffuse: [0.7, 0.7, 0.7],
+            specular: [1.0, 1.0, 1.0],
+            emissive: [0, 0, 0],
+            alpha: 1.0
+
+        }),
+        lights: lights
+    });
+
+    // Ground plane
+
+    new xeogl.Mesh({
+        geometry: new xeogl.PlaneGeometry({
+            xSize: 30,
+            zSize: 30
+        }),
+        material: new xeogl.PhongMaterial({
+            diffuseMap: new xeogl.Texture({
+                src: "textures/diffuse/uvGrid2.jpg"
+            }),
+            backfaces: true
+        }),
+        position: [0, -2.1, 0],
+        lights: lights
+    });
+
+    // User camera control
+
+    new xeogl.CameraControl();
+
+    // Orbit camera
+
+    scene.on("tick", function () {
+        scene.camera.orbitYaw(0.3);
+    });
+
+</script>
+</body>
+</html>

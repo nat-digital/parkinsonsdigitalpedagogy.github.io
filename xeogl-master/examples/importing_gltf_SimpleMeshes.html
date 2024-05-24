@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>xeogl Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <script src="../build/xeogl.js"></script>
+    <script src="js/models/glTFModel.js"></script>
+
+    <link href="css/styles.css" rel="stylesheet"/>
+
+<body>
+
+<div id="info">
+    <h1><a href="../docs/classes/GLTFModel.html" target="_parent">GLTFModel</a> - importing glTF triangle meshes with positions, normals and indices
+        but no normals</h1>
+    <pre id="log">model: SimpleMeshes - [<a
+            href='https://github.com/xeolabs/xeogl/tree/master/examples/models/gltf/SimpleMeshes/README.md'
+            target="_parent">model info</a>]</pre>
+</div>
+
+<script>
+
+    var model = new xeogl.GLTFModel({
+        src: "models/gltf/SimpleMeshes/glTF/SimpleMeshes.gltf"
+    });
+
+    var camera = model.scene.camera;
+
+    camera.eye = [1, 0, 3];
+    camera.look = [1, 0, 0];
+    camera.up = [0, 1, 0];
+
+    new xeogl.CameraControl(); // User camera control
+
+</script>
+</body>
+</html>

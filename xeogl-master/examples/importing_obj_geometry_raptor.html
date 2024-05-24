@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>xeogl Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <link href="css/styles.css" rel="stylesheet"/>
+
+    <script src="../build/xeogl.js"></script>
+
+    <script src="js/geometry/k3d.js"></script>
+    <script src="js/geometry/objGeometryLoader.js"></script>
+
+<body>
+
+<div id="info">
+    <h1>importing geometry from a Wavefront .OBJ file</h1>
+</div>
+
+<script>
+
+    var scene = xeogl.getDefaultScene();
+
+    xeogl.loadOBJGeometry(scene, "models/obj/raptor/raptor.obj", function (geometry) {
+
+        var mesh = new xeogl.Mesh({
+
+            geometry: geometry,
+
+            material: new xeogl.PhongMaterial({
+
+                pointSize: 5,
+
+                diffuseMap: new xeogl.Texture({
+                    src: "models/obj/raptor/raptor.jpg",
+                    encoding: "sRGB"
+                }),
+
+                specularFresnel: new xeogl.Fresnel({
+                    edgeBias: 0.2,
+                    centerBias: 0.8,
+                    power: 0.2,
+                    edgeColor: [0.4, 0.4, 0.4],
+                    centerColor: [0.0, 0.0, 0.0]
+                }),
+
+                emissive: [1, 1, 1],
+
+                emissiveFresnel: new xeogl.Fresnel({
+                    edgeBias: 0.3,
+                    centerBias: 0.8,
+                    edgeColor: [0.3, 0.3, 0.3],
+                    centerColor: [0.0, 0.0, 0.0],
+                    power: 0.3
+                })
+            }),
+
+            rotation: [0, 120, 0],
+            position: [10, 3, 10]
+        });
+
+        // Allow user camera control
+        new xeogl.CameraControl();
+
+        var cameraFlight = new xeogl.CameraFlightAnimation();
+
+        // Fit to view
+
+        cameraFlight.jumpTo({
+            aabb: mesh.aabb,
+            fit: true,
+            fitFOV: 45
+        });
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>xeogl Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <script src="../build/xeogl.js"></script>
+    <script src="js/models/glTFModel.js"></script>
+
+    <script src="js/skyboxes/skybox.js"></script>
+
+    <link href="css/styles.css" rel="stylesheet"/>
+
+    <script src="js/libs/dat.gui.min.js"></script>
+
+    <style>
+        body {
+            background-color: black;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+
+<body>
+
+<div id="info">
+    <h1><a href="../docs/classes/GLTFModel.html" target="_parent">GLTFModel</a> - loading glTF and applying ghost and
+        highlight effects</h1>
+    <pre id="log">model: <a href="https://sketchfab.com/scann3d"
+                            target="_parent">sketchfab.com/scann3d</a></pre>
+</div>
+
+<div id="dat-gui-container">
+</div>
+
+<script>
+
+    var scene = new xeogl.Scene({
+        transparent: true
+    });
+
+    xeogl.setDefaultScene(scene);
+
+    //---------------------------------------------------
+    // Load the model
+    //---------------------------------------------------
+
+    var model = new xeogl.GLTFModel({
+        id: "office",
+        src: "models/gltf/office/scene.gltf",
+        scale: [.01, .01, .01],
+        edgeThreshold: 20
+    });
+
+    //-----------------------------------------------------------------------------------------------------
+    // Camera
+    //-----------------------------------------------------------------------------------------------------
+
+    var camera = scene.camera;
+
+    camera.eye = [-180.21798706054688, 248.6997528076172, -262.179931640625];
+    camera.look = [-79.57421875, -23.087656021118164, 2.36319637298584];
+    camera.up = [0.24628230929374695, 0.7213045954704285, 0.6473535299301147];
+
+
+    model.on("loaded", function () {
+        scene.on("tick", function () { // Slowly orbit the camera
+
+        });
+    });
+
+    var cameraControl = new xeogl.CameraControl({
+        panToPointer: true,
+        pivoting: true
+    });
+
+    var cameraFlight = new xeogl.CameraFlightAnimation();
+
+//    cameraControl.on("hoverEnter", function (hit) {
+//        hit.mesh.highlighted = true;
+//    });
+//
+//    cameraControl.on("hoverOut", function (hit) {
+//        hit.mesh.highlighted = false;
+//    });
+
+    cameraControl.on("picked", function (hit) {
+        if (scene.input.keyDown[input.KEY_SHIFT]) {
+            hit.mesh.selected = !hit.mesh.selected;
+        } else {
+            cameraFlight.flyTo(hit.mesh);
+        }
+    });
+
+    cameraControl.on("pickedNothing", function (hit) {
+        cameraFlight.flyTo(model);
+    });
+
+
+    cameraControl.on("picked", function (e) {
+        console.log(e.mesh.id)
+    });
+
+    model.on("loaded", function () {
+
+        model.ghosted = true;
+
+        var selectedMeshes = [
+            "office#285.0",
+            "office#291.0",
+            "office#57.0"
+        ];
+
+        var Menu = function () {
+
+            var ghostMaterial = scene.ghostMaterial;
+            var highlightMaterial = scene.highlightMaterial;
+
+            this["ghosted"] = true;
+            this["ghostMaterial.preset"] = "defaultDarkBG";
+            this["ghostMaterial.edges"] = ghostMaterial.edges;
+            this["ghostMaterial.fill"] = ghostMaterial.fill;
+            this["ghostMaterial.vertices"] = ghostMaterial.vertices;
+            this["ghostMaterial.edgeColor"] = typedToJS(ghostMaterial.edgeColor);
+            this["ghostMaterial.edgeAlpha"] = ghostMaterial.edgeAlpha;
+            this["ghostMaterial.edgeWidth"] = ghostMaterial.edgeWidth;
+            this["ghostMaterial.vertexColor"] = typedToJS(ghostMaterial.vertexColor);
+            this["ghostMaterial.vertexAlpha"] = ghostMaterial.vertexAlpha;
+            this["ghostMaterial.vertexSize"] = ghostMaterial.vertexSize;
+            this["ghostMaterial.fillColor"] = typedToJS(ghostMaterial.fillColor);
+            this["ghostMaterial.fillAlpha"] = ghostMaterial.fillAlpha;
+
+            this["highlighted"] = true;
+            this["highlightMaterial.preset"] = "yellowHighlight";
+            this["highlightMaterial.edges"] = highlightMaterial.edges;
+            this["highlightMaterial.fill"] = highlightMaterial.fill;
+            this["highlightMaterial.vertices"] = highlightMaterial.vertices;
+            this["highlightMaterial.edgeColor"] = typedToJS(highlightMaterial.edgeColor);
+            this["highlightMaterial.edgeAlpha"] = highlightMaterial.edgeAlpha;
+            this["highlightMaterial.edgeWidth"] = highlightMaterial.edgeWidth;
+            this["highlightMaterial.vertexColor"] = typedToJS(highlightMaterial.vertexColor);
+            this["highlightMaterial.vertexAlpha"] = highlightMaterial.vertexAlpha;
+            this["highlightMaterial.vertexSize"] = highlightMaterial.vertexSize;
+            this["highlightMaterial.fillColor"] = typedToJS(highlightMaterial.fillColor);
+            this["highlightMaterial.fillAlpha"] = highlightMaterial.fillAlpha;
+
+            this["scene.gammaOutput"] = model.scene.gammaOutput;
+            this["scene.gammaFactor"] = model.scene.gammaFactor;
+
+            var self = this;
+
+            var lastGhostMaterialPreset;
+            var lastHighlightMaterialPreset;
+
+            var update = function () {
+
+                model.ghosted = !!self["ghosted"];
+
+                var preset = self["ghostMaterial.preset"];
+                if (lastGhostMaterialPreset !== preset) {
+                    ghostMaterial.preset = preset;
+                    lastGhostMaterialPreset = preset;
+                    self["ghostMaterial.edges"] = ghostMaterial.edges;
+                    self["ghostMaterial.fill"] = ghostMaterial.fill;
+                    self["ghostMaterial.vertices"] = ghostMaterial.vertices;
+                    self["ghostMaterial.edgeColor"] = typedToJS(ghostMaterial.edgeColor);
+                    self["ghostMaterial.edgeAlpha"] = ghostMaterial.edgeAlpha;
+                    self["ghostMaterial.edgeWidth"] = ghostMaterial.edgeWidth;
+                    self["ghostMaterial.vertexColor"] = typedToJS(ghostMaterial.vertexColor);
+                    self["ghostMaterial.vertexAlpha"] = ghostMaterial.vertexAlpha;
+                    self["ghostMaterial.vertexSize"] = ghostMaterial.vertexSize;
+                    self["ghostMaterial.fillColor"] = typedToJS(ghostMaterial.fillColor);
+                    self["ghostMaterial.fillAlpha"] = ghostMaterial.fillAlpha;
+                } else {
+                    ghostMaterial.vertices = !!self["ghostMaterial.vertices"];
+                    ghostMaterial.edges = !!self["ghostMaterial.edges"];
+                    ghostMaterial.fill = !!self["ghostMaterial.fill"];
+                    ghostMaterial.edgeColor = JSToTyped(self["ghostMaterial.edgeColor"]);
+                    ghostMaterial.edgeAlpha = self["ghostMaterial.edgeAlpha"];
+                    ghostMaterial.edgeWidth = self["ghostMaterial.edgeWidth"];
+                    ghostMaterial.vertexColor = JSToTyped(self["ghostMaterial.vertexColor"]);
+                    ghostMaterial.vertexAlpha = self["ghostMaterial.vertexAlpha"];
+                    ghostMaterial.vertexSize = self["ghostMaterial.vertexSize"];
+                    ghostMaterial.fillColor = JSToTyped(self["ghostMaterial.fillColor"]);
+                    ghostMaterial.fillAlpha = self["ghostMaterial.fillAlpha"];
+                }
+
+                preset = self["highlightMaterial.preset"];
+
+                if (lastHighlightMaterialPreset !== preset) {
+                    highlightMaterial.preset = preset;
+                    lastHighlightMaterialPreset = preset;
+                    self["highlightMaterial.edges"] = highlightMaterial.edges;
+                    self["highlightMaterial.fill"] = highlightMaterial.fill;
+                    self["highlightMaterial.vertices"] = highlightMaterial.vertices;
+                    self["highlightMaterial.edgeColor"] = typedToJS(highlightMaterial.edgeColor);
+                    self["highlightMaterial.edgeAlpha"] = highlightMaterial.edgeAlpha;
+                    self["highlightMaterial.edgeWidth"] = highlightMaterial.edgeWidth;
+                    self["highlightMaterial.vertexColor"] = typedToJS(highlightMaterial.vertexColor);
+                    self["highlightMaterial.vertexAlpha"] = highlightMaterial.vertexAlpha;
+                    self["highlightMaterial.vertexSize"] = highlightMaterial.vertexSize;
+                    self["highlightMaterial.fillColor"] = typedToJS(highlightMaterial.fillColor);
+                    self["highlightMaterial.fillAlpha"] = highlightMaterial.fillAlpha;
+                } else {
+                    highlightMaterial.vertices = !!self["highlightMaterial.vertices"];
+                    highlightMaterial.edges = !!self["highlightMaterial.edges"];
+                    highlightMaterial.fill = !!self["highlightMaterial.fill"];
+                    highlightMaterial.edgeColor = JSToTyped(self["highlightMaterial.edgeColor"]);
+                    highlightMaterial.edgeAlpha = self["highlightMaterial.edgeAlpha"];
+                    highlightMaterial.edgeWidth = self["highlightMaterial.edgeWidth"];
+                    highlightMaterial.vertexColor = JSToTyped(self["highlightMaterial.vertexColor"]);
+                    highlightMaterial.vertexAlpha = self["highlightMaterial.vertexAlpha"];
+                    highlightMaterial.vertexSize = self["highlightMaterial.vertexSize"];
+                    highlightMaterial.fillColor = JSToTyped(self["highlightMaterial.fillColor"]);
+                    highlightMaterial.fillAlpha = self["highlightMaterial.fillAlpha"];
+                }
+
+                var highlighted = !!self["highlighted"];
+
+                for (var i = 0; i < selectedMeshes.length; i++) {
+                    var id = selectedMeshes[i];
+                    var mesh = model.meshes[id];
+                    if (mesh) {
+                        mesh.highlighted = highlighted;
+                        mesh.ghosted = false;
+                    }
+                }
+
+                model.scene.gammaOutput = self["scene.gammaOutput"];
+                model.scene.gammaFactor = self["scene.gammaFactor"];
+
+                requestAnimationFrame(update);
+            };
+
+            update();
+        };
+
+        var gui = new dat.GUI({autoPlace: false, top: 0, width: 400});
+
+        document.getElementById('dat-gui-container').appendChild(gui.domElement);
+
+        var menu = new Menu();
+
+        var ghostFolder = gui.addFolder('scene.ghostMaterial');
+        ghostFolder.add(menu, 'ghosted', true);
+        ghostFolder.add(menu, 'ghostMaterial.preset', Object.keys(xeogl.EmphasisMaterial.presets));
+        ghostFolder.add(menu, 'ghostMaterial.edges', true).listen();
+        ghostFolder.addColor(menu, 'ghostMaterial.edgeColor', [255, 255, 255]).listen();
+        ghostFolder.add(menu, 'ghostMaterial.edgeAlpha', 0.0, 1.0).listen();
+        ghostFolder.add(menu, 'ghostMaterial.edgeWidth', 1, 10).listen();
+        ghostFolder.add(menu, 'ghostMaterial.vertices', true).listen();
+        ghostFolder.addColor(menu, 'ghostMaterial.vertexColor', [255, 255, 255]).listen();
+        ghostFolder.add(menu, 'ghostMaterial.vertexAlpha', 0.0, 1.0).listen();
+        ghostFolder.add(menu, 'ghostMaterial.vertexSize', 1, 10).listen();
+        ghostFolder.add(menu, 'ghostMaterial.fill', true).listen();
+        ghostFolder.addColor(menu, 'ghostMaterial.fillColor', [255, 255, 255]).listen();
+        ghostFolder.add(menu, 'ghostMaterial.fillAlpha', 0.0, 1.0).listen();
+        ghostFolder.open();
+
+        var highlightFolder = gui.addFolder('scene.highlighted');
+        highlightFolder.add(menu, 'highlighted', true);
+        highlightFolder.add(menu, 'highlightMaterial.preset', Object.keys(xeogl.EmphasisMaterial.presets));
+        highlightFolder.add(menu, 'highlightMaterial.edges', true).listen();
+        highlightFolder.addColor(menu, 'highlightMaterial.edgeColor', [255, 255, 255]).listen();
+        highlightFolder.add(menu, 'highlightMaterial.edgeAlpha', 0.0, 1.0).listen();
+        highlightFolder.add(menu, 'highlightMaterial.edgeWidth', 1, 10).listen();
+        highlightFolder.add(menu, 'highlightMaterial.vertices', true).listen();
+        highlightFolder.addColor(menu, 'highlightMaterial.vertexColor', [255, 255, 255]).listen();
+        highlightFolder.add(menu, 'highlightMaterial.vertexAlpha', 0.0, 1.0).listen();
+        highlightFolder.add(menu, 'highlightMaterial.vertexSize', 1, 10).listen();
+        highlightFolder.add(menu, 'highlightMaterial.fill', true).listen();
+        highlightFolder.addColor(menu, 'highlightMaterial.fillColor', [255, 255, 255]).listen();
+        highlightFolder.add(menu, 'highlightMaterial.fillAlpha', 0.0, 1.0).listen();
+        highlightFolder.open();
+
+        var gammaFolder = gui.addFolder('gamma');
+        gammaFolder.add(menu, 'scene.gammaOutput', true).listen();
+        gammaFolder.add(menu, 'scene.gammaFactor', 0.0, 3.0).listen();
+        gammaFolder.open();
+
+        function typedToJS(arry) {
+            return [arry[0] * 255, arry[1] * 255, arry[2] * 255];
+        }
+
+        function JSToTyped(arry) {
+            return [arry[0] / 255, arry[1] / 255, arry[2] / 255];
+        }
+    });
+
+</script>
+</body>
+</html>

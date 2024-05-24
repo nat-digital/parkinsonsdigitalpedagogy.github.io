@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>xeogl Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <link href="css/styles.css" rel="stylesheet"/>
+
+    <script src="../build/xeogl.js"></script>
+    <script src="js/models/glTFModel.js"></script>
+
+<body>
+
+<div id="info">
+    <h1>Two <a href="../docs/classes/GLTFModel.html" target="_parent">GLTFModels</a> loading concurrently</h1>
+</div>
+
+<div id="logos">
+    <a href="https://www.khronos.org/gltf" target="_parent"><img src="../assets/images/logos/gltf.png"></a>
+</div>
+
+<script>
+
+    var gearbox = new xeogl.GLTFModel({
+        src: "models/gltf/GearboxAssy/glTF-MaterialsCommon/GearboxAssy.gltf"
+    });
+
+    var saw = new xeogl.GLTFModel({
+        src: "models/gltf/ReciprocatingSaw/PBR-SpecGloss/Reciprocating_Saw.gltf",
+        rotation: [90, 0, 0]
+    });
+
+    new xeogl.CameraControl();
+
+    var camera = gearbox.scene.camera;
+
+    camera.eye = [184.21, 10.54, -7.03];
+    camera.look = [159.20, 17.02, 3.21];
+    camera.up = [-0.15, 0.97, 0.13];
+
+    new xeogl.CameraControl();
+
+    gearbox.scene.on("tick", function () {
+        camera.orbitYaw(-0.1);
+        camera.orbitPitch(0.02);
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>xeogl Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <script src="../build/xeogl.js"></script>
+    <link href="css/styles.css" rel="stylesheet"/>
+
+<body>
+
+<div id="info">
+    <h1><a href="../docs/classes/AmbientLight.html"
+           target="_parent">AmbientLight</a></h1>
+</div>
+
+<script>
+
+    var scene = xeogl.getDefaultScene();
+
+    scene.clearLights();
+
+    var material = new xeogl.PhongMaterial({
+        ambient: [0.0, 0.7, 0.7],
+        diffuse: [1, 1, 1]
+    });
+
+    var ambientLight = new xeogl.AmbientLight({
+        color: [0.0, 0.3, 0.7]
+    });
+
+    var dirLight = new xeogl.DirLight({
+        dir: [0.6, 0.6, -1.0],
+        color: [0.7, 0.7, 0.8],
+        intensity: 1.0,
+        space: "view"
+    });
+
+    var mesh = new xeogl.Mesh({
+        geometry: new xeogl.BoxGeometry(),
+        material: material
+    });
+
+    mesh.scene.on("tick",
+            function () {
+                mesh.scene.camera.orbitYaw(0.6);
+                mesh.scene.camera.orbitPitch(0.3);
+            });
+</script>
+</body>
+</html>

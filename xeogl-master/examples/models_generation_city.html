@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>xeogl Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <link href="css/styles.css" rel="stylesheet"/>
+
+    <script src="../build/xeogl.js"></script>
+    <script src="js/models/buildableModel.js"></script>
+    <script src="js/animation/cameraFollowAnimation.js"></script>
+
+<body>
+
+<div id="info">
+    <h1>using a <a href="../docs/classes/BuildableModel.html" target="_parent">BuildableModel</a> to procedurally generate a simple city</h1>
+</div>
+
+<script>
+
+    //-------------------------------------------------------------------
+    // Demonstrates how to use a BuildableModel to generate xeogl content
+    //-------------------------------------------------------------------
+
+    // We're going to construct this BuildableModel
+    var buildableModel = new xeogl.BuildableModel();
+
+    // Create some geometry and material assets
+
+    buildableModel.createAsset("box", {
+        type: "xeogl.BoxGeometry",
+        xSize: 1,
+        ySize: 1,
+        zSize: 1
+    });
+
+    buildableModel.createAsset("asphalt", {
+        type: "xeogl.LambertMaterial",
+        diffuse: [0.2, 0.2, 0.2],
+        ambient: [0.2, 0.2, 0.2],
+        specular: [0.0, 0.0, 0.0]
+    });
+
+    buildableModel.createAsset("lightConcrete", {
+        type: "xeogl.LambertMaterial",
+        diffuse: [0.6, 0.6, 0.6],
+        ambient: [0.2, 0.2, 0.2]
+    });
+
+    buildableModel.createAsset("grass", {
+        type: "xeogl.LambertMaterial",
+        diffuse: [0, 0.5, 0.2],
+        ambient: [0.1, 0.1, 0.1]
+    });
+
+    // Select a couple of assets and generate the asphalt ground
+
+    buildableModel.setGeometry("box");
+    buildableModel.setMaterial("asphalt");
+    buildableModel.setPosition(20, -.5, 20);
+    buildableModel.setScale(140, 0.1, 140);
+    buildableModel.createMesh();
+
+    // Generate the buildings
+
+    var extent = 1000;
+
+    for (var x = -extent; x <= extent; x += 60) {
+        for (var z = -extent; z <= extent; z += 60) {
+            makeBuilding(x + 2, z + 2, x + 60 - 2, z + 60 - 2);
+        }
+    }
+
+    function makeBuilding(xmin, zmin, xmax, zmax) {
+
+        var xpos = (xmin + xmax) * 0.5;
+        var ypos = 0;
+        var zpos = (zmin + zmax) * 0.5;
+
+        // Each building gets a green lawn under it
+
+        buildableModel.setGeometry("box");
+        buildableModel.setMaterial("grass");
+        buildableModel.setPosition(xpos, ypos, zpos);
+        buildableModel.setScale((xmax - xmin) / 2.5, 0.5, (zmax - zmin) / 2.5);
+        buildableModel.setColorize(0.3 + Math.random() * 0.5, 0.3 + Math.random() * 0.5, 0.3 + Math.random() * 0.5, 1.0);
+        buildableModel.createMesh();
+
+        // Now generate the building as a bunch of boxes
+
+        var yMaxSize = (Math.random() * 30) + 15;
+        var ySize = yMaxSize + 10;
+        var width;
+        var axis;
+        var sign;
+
+        var xminBox;
+        var zminBox;
+        var xmaxBox;
+        var zmaxBox;
+
+        while (ySize > 5) {
+
+            width = (Math.random() * 5) + 2;
+            axis = Math.round(Math.random());
+            sign = Math.round(Math.random());
+
+            switch (axis) {
+
+                case 0:
+
+                    if (sign == 0) {
+
+                        xminBox = xmin;
+                        zminBox = zpos - width;
+
+                        xmaxBox = xpos + width;
+                        zmaxBox = zpos + width;
+
+                    } else {
+
+                        xminBox = xpos - width;
+                        zminBox = zpos - width;
+
+                        xmaxBox = xmax;
+                        zmaxBox = zpos + width;
+                    }
+
+                    break;
+
+                case 1:
+
+                    if (sign == 0) {
+
+                        xminBox = xpos - width;
+                        zminBox = zmin;
+
+                        xmaxBox = xpos + width;
+                        zmaxBox = zpos + width;
+
+                    } else {
+
+                        xminBox = xpos - width;
+                        zminBox = zpos - width;
+
+                        xmaxBox = xpos + width;
+                        zmaxBox = zmax;
+                    }
+
+                    break;
+            }
+
+            buildableModel.setGeometry("box");
+            buildableModel.setMaterial("lightConcrete");
+            buildableModel.setPosition(xpos, ypos + ySize, zpos);
+            buildableModel.setScale((xmaxBox - xminBox) * 0.5, ySize, (zmaxBox - zminBox) * 0.5);
+            buildableModel.createMesh();
+
+            // Decrease current vertical box size
+            ySize -= (Math.random() * 5) + 2;
+        }
+    }
+
+    // Automatically fit the view to the model
+    new xeogl.CameraFollowAnimation({
+        target: buildableModel,
+        fit: true,
+        fitFOV: 55
+    });
+
+    // Allow user camera control
+    new xeogl.CameraControl();
+
+    // Slowly orbit camera about model
+
+    var lookat = buildableModel.scene.camera;
+
+    lookat.orbitPitch(10);
+
+    buildableModel.scene.on("tick", function () {
+        lookat.orbitYaw(0.1);
+
+    });
+
+</script>
+</body>
+</html>

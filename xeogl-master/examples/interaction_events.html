@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>xeogl Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <script src="../build/xeogl.js"></script>
+    <link href="css/styles.css" rel="stylesheet"/>
+
+<body>
+
+<div id="info">
+    <h1>handling input events</h1>
+    <pre id="log"></pre>
+</div>
+
+<script>
+
+    var mesh = new xeogl.Mesh();
+
+    mesh.scene.camera.eye = [-3, 2, 1];
+
+
+    var input = mesh.scene.input;
+
+    input.on("keydown", function (keyCode) {
+        log("keydown, keyCode = " + keyCode);
+    });
+
+    input.on("keyup", function (keyCode) {
+        log("keyup, keyCode = " + keyCode);
+    });
+
+    input.on("mousedown", function (params) {
+        log("mousedown", params);
+    });
+
+    input.on("mouseup", function (params) {
+        log("mouseup", params);
+    });
+
+    input.on("mousemove", function (params) {
+        log("mousemove", params);
+    });
+
+    input.on("mousewheel", function (params) {
+        log("mousewheel", params);
+    });
+
+    input.on("mouseclicked", function (params) {
+        log("mouseclicked", params);
+    });
+
+    input.on("orientationchange", function (params) {
+        log("orientationchange", params);
+    });
+
+    input.on("devicemotion", function (params) {
+        log("devicemotion", params);
+    });
+
+    input.on("deviceorientation", function (params) {
+        log("deviceorientation", params);
+    });
+
+    var buf = [];
+
+    // Logs text to the page
+    function log(event, params) {
+
+        var txt = event;
+        if (params) {
+            txt += ": " + JSON.stringify(params)
+        }
+
+        buf.push(txt);
+
+        if (buf.length > 30) {
+            buf.shift();
+        }
+        document.getElementById("log").innerText = buf.join("\n");
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>xeogl Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <script src="../build/xeogl.js"></script>
+    <script src="js/models/OBJModel.js"></script>
+
+    <link href="css/styles.css" rel="stylesheet"/>
+
+<body>
+
+<div id="info">
+    <h1><a href="../docs/classes/OBJModel.html" target="_parent">OBJModel</a> loaded from OBJ and MTL files
+    </h1>
+     <pre id="log">model: Greg Ward's conference room model - [<a
+             href='models/obj/conference/copyright.txt' target="_parent">model info</a>]</pre>
+</div>
+
+<script>
+
+    // Load the model
+
+    var confRoom = new xeogl.OBJModel({
+        id: "confRoom",
+        src: "models/obj/conference/conference.obj"
+    });
+
+    confRoom.on("loaded", function () {
+
+        // Fit table top to view
+
+        var cameraFlight = new xeogl.CameraFlightAnimation();
+        cameraFlight.flyTo("confRoom#mesh29");
+
+
+        // Make everything transparent except for the conference table and chairs
+
+        var id;
+        var meshes = confRoom.meshes;
+
+        for (id in meshes) {
+            var mesh = meshes[id];
+            switch (id) {
+                case "confRoom#mesh31":
+                case "confRoom#mesh29":
+                    break;
+                default:
+                    mesh.material.alpha = 0.5;
+                    mesh.material.alphaMode = "blend";
+
+            }
+        }
+    });
+
+    // Enable camera interaction
+
+    new xeogl.CameraControl();
+
+    // Orbit camera
+
+    var camera = confRoom.scene.camera;
+    camera.orbitPitch(10);
+    confRoom.scene.on("tick", function () {
+        camera.orbitYaw(0.1);
+    });
+
+</script>
+</body>
+</html>

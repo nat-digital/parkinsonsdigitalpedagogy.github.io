@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>xeogl Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <script src="../build/xeogl.js"></script>
+    <script src="js/models/OBJModel.js"></script>
+
+    <link href="css/styles.css" rel="stylesheet"/>
+
+<body>
+
+<div id="info">
+    <h1><a href="../docs/classes/OBJModel.html" target="_parent">OBJModels</a> loaded from OBJ and MTL
+        files
+    </h1>
+</div>
+
+<script>
+
+    // Load the male model
+
+    var maleModel = new xeogl.OBJModel({
+        id: "maleModel",
+        src: "models/obj/male02/male02.obj",
+        position: [-50, 0, -60]     // Move the male model to one side
+    });
+
+    // Load a female model
+
+    var femaleModel = new xeogl.OBJModel({
+        id: "femaleModel",
+        src: "models/obj/female02/female02.obj"
+    });
+
+    // Fit to view when both models are loaded
+
+    maleModel.on("loaded", function () {
+        femaleModel.on("loaded", function () {
+            var cameraFlight = new xeogl.CameraFlightAnimation();
+            cameraFlight.flyTo(maleModel.scene);
+        });
+    });
+
+    // Enable camera interaction
+
+    new xeogl.CameraControl();
+
+</script>
+</body>
+</html>

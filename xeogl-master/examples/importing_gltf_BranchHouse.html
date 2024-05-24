@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>xeogl Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <script src="../build/xeogl.js"></script>
+    <script src="js/models/glTFModel.js"></script>
+
+    <script src="js/curves/curve.js"></script>
+    <script src="js/curves/splineCurve.js"></script>
+    <script src="js/animation/cameraPath.js"></script>
+    <script src="js/animation/cameraPathAnimation.js"></script>
+    <script src="js/skyboxes/skybox.js"></script>
+
+    <link href="css/styles.css" rel="stylesheet"/>
+
+<body>
+
+<div id="info">
+    <ul>
+        <li><a href="https://github.com/xeolabs/xeogl/blob/master/examples/importing_gltf_BranchHouse.html">View source
+            code</a></li>
+        <li>Model by: <a href='https://sketchfab.com/henryr' target="_parent">https://sketchfab.com/henryr</a></li>
+    </ul>
+
+</div>
+
+
+<script>
+
+    //-----------------------------------------------------------------------------------------------------
+    // Load glTF model
+    //-----------------------------------------------------------------------------------------------------
+
+    var model = new xeogl.GLTFModel({
+        id: "house",
+        src: "models/gltf/the_branch_house/scene.gltf",
+        edgeThreshold: 20,
+        combineGeometry: true,
+        quantizeGeometry: true
+    });
+
+    //-----------------------------------------------------------------------------------------------------
+    // Set up camera
+    //-----------------------------------------------------------------------------------------------------
+
+    var scene = model.scene;
+    var camera = scene.camera;
+
+    camera.eye = [-1.7671842575073242, 2.231440782546997, -4.35687780380249];
+    camera.look = [0.4531812071800232, 0.48309606313705444, -0.08688834309577942];
+    camera.up = [0.11574053764343262, 0.9680269956588745, 0.22258135676383972];
+
+    var cameraControl = new xeogl.CameraControl();
+
+    scene.ghostMaterial.preset = "phosphorous";
+
+    //-----------------------------------------------------------------------------------------------------
+    // Ground plane
+    //-----------------------------------------------------------------------------------------------------
+
+    new xeogl.Mesh({
+        geometry: new xeogl.PlaneGeometry({
+            xSize: 100,
+            zSize: 100
+        }),
+        material: new xeogl.PhongMaterial({
+            shininess: 170,
+            specular: [0.1, 0.1, 0.3],
+            diffuseMap: new xeogl.Texture({
+                src: "textures/diffuse/UVCheckerMap11-1024.png",
+                scale: [-25.0, 25.0]
+            }),
+            xalpha: 0.99,
+            backfaces: false
+        }),
+        collidable: false,
+        pickable: false,
+        colorize: [0.5, 1, 0.5, 1]
+    });
+
+    var spinning = true;
+
+    model.on("loaded", function () {
+        scene.on("tick", function () { // Slowly orbit the camera
+            if (spinning) {
+                camera.orbitYaw(-0.1);
+            }
+        });
+    });
+
+    new xeogl.CameraControl(); // User camera control
+
+//    new xeogl.LightMap({
+//        src: [
+//            "textures/light/Uffizi_Gallery/Uffizi_Gallery_Irradiance_PX.png",
+//            "textures/light/Uffizi_Gallery/Uffizi_Gallery_Irradiance_NX.png",
+//            "textures/light/Uffizi_Gallery/Uffizi_Gallery_Irradiance_PY.png",
+//            "textures/light/Uffizi_Gallery/Uffizi_Gallery_Irradiance_NY.png",
+//            "textures/light/Uffizi_Gallery/Uffizi_Gallery_Irradiance_PZ.png",
+//            "textures/light/Uffizi_Gallery/Uffizi_Gallery_Irradiance_NZ.png"
+//        ],
+//        encoding: "linear"
+//    });
+
+    new xeogl.ReflectionMap({
+        src: [
+            "textures/reflect/Uffizi_Gallery/Uffizi_Gallery_Radiance_PX.png",
+            "textures/reflect/Uffizi_Gallery/Uffizi_Gallery_Radiance_NX.png",
+            "textures/reflect/Uffizi_Gallery/Uffizi_Gallery_Radiance_PY.png",
+            "textures/reflect/Uffizi_Gallery/Uffizi_Gallery_Radiance_NY.png",
+            "textures/reflect/Uffizi_Gallery/Uffizi_Gallery_Radiance_PZ.png",
+            "textures/reflect/Uffizi_Gallery/Uffizi_Gallery_Radiance_NZ.png"
+        ],
+        encoding: "sRGB"
+    });
+
+
+</script>
+</body>
+</html>

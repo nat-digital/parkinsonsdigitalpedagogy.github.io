@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>xeogl Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <script src="../build/xeogl.js"></script>
+    <script src="js/models/glTFModel.js"></script>
+
+    <link href="css/styles.css" rel="stylesheet"/>
+
+<body>
+
+<div id="info">
+    <h1><a href="../docs/classes/GLTFModel.html" target="_parent">GLTFModel</a> - importing glTF with alpha mask</h1>
+    <pre id="log">model: <a
+            href='https://sketchfab.com/eliteforcevn' target="_parent">https://sketchfab.com/eliteforcevn</a></pre>
+</div>
+
+<script>
+
+    //---------------------------------------------------
+    // Load the model
+    //---------------------------------------------------
+
+    var model = new xeogl.GLTFModel({
+        src: "models/gltf/BananaTree/scene.gltf"
+    });
+
+    //-----------------------------------------------------------------------------------------------------
+    // Camera animation and user control
+    //-----------------------------------------------------------------------------------------------------
+
+    var scene = xeogl.getDefaultScene();
+    var camera = scene.camera;
+
+    camera.eye = [261.92, 491.56, -340.21];
+    camera.look = [21.12, 243.80, -6.53];
+    camera.up = [-0.30, 0.85, 0.41];
+
+    camera.zoom(-65);
+
+    var spinning = true;
+
+    scene.on("tick", function () { // Slowly orbit the camera
+        if (spinning) {
+                camera.orbitYaw(-0.08);
+        }
+    });
+
+    var cameraControl = new xeogl.CameraControl(); // User camera control
+
+
+</script>
+</body>
+</html>
