@@ -44,7 +44,7 @@
     //------------------------------------------------------------------------------------------------------------------
      var model = new xeogl.GLTFModel({
         id: "Neurons",
-        src: "./despina/new/neurons.gltf",
+        src: "./despina/neurons.gltf",
        // src: "./anat/aaa/mir2.gltf",
         handleNode: (function () { // Callback fired for each glTF scene node
             var objectCount = 0;
@@ -446,10 +446,10 @@ model2.on("loaded", function () {
         cameraFlight.flyTo(model);
     });
 
-    scene.highlightMaterial.fillAlpha = 0.6;
-    scene.highlightMaterial.edgeAlpha = 0.6;
-    scene.highlightMaterial.edgeColor = [0, 0, 0];
-    scene.highlightMaterial.edgeWidth = 2;
+   
+        scene.ghostMaterial.edgeAlpha = 0.3;
+        scene.ghostMaterial.edgeWidth = 0.1;
+        scene.ghostMaterial.fill = 0.0;
 
    // A Skybox that wraps our Meshes in a cloudy background
    var skybox = new xeogl.Skybox({
