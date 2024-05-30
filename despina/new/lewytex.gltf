@@ -123,6 +123,9 @@
 			},
 			"name":"defaultMat.001",
 			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":0
+				},
 				"metallicFactor":0
 			}
 		},
@@ -140,7 +143,7 @@
 			"name":"defaultMat.003",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":0
+					"index":1
 				},
 				"metallicFactor":0
 			}
@@ -208,9 +211,18 @@
 		{
 			"sampler":0,
 			"source":0
+		},
+		{
+			"sampler":0,
+			"source":1
 		}
 	],
 	"images":[
+		{
+			"mimeType":"image/png",
+			"name":"lewy body texture",
+			"uri":"lewy%20body%20texture.png"
+		},
 		{
 			"mimeType":"image/png",
 			"name":"nucleus map",
