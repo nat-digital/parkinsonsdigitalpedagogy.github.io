@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Parkinsons Anatomy Project</title>
-    <link  rel="icon"   href="dashboard/dundeelogo.ico"  type="image/png"/>
+    <link rel="icon" href="dashboard/dundeelogo.ico" type="image/png" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 
-    <link href="./FILES/styles.css" rel="stylesheet"/>
+    <link href="./FILES/styles.css" rel="stylesheet" />
     <script src="./FILES/xeogl.js"></script>
 
     <script src="./FILES/dat.gui.min.js"></script>
@@ -22,123 +23,122 @@
     <script src="./xeogl-master/examples/js/stories/annotationStory.js"></script>
     <!-- script needed for skybox -->
     <script src="./xeogl-master/examples/js/skyboxes/skybox.js"></script>
-<!-- 
+    <!-- 
     <link  type="text/css" rel="stylesheet" href="./sites/AnatomyProject/files/simba/css/forms.css"/> -->
 
- <link href="./FILES/story-style.css" rel="stylesheet"/>  
+    <link href="./FILES/story-style.css" rel="stylesheet" />
 
- <link href='https://fonts.googleapis.com/css?family=Exo+2:400,800,900,700,600,500|Roboto:100,300,400,500,700,900'
- rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Exo+2:400,800,900,700,600,500|Roboto:100,300,400,500,700,900'
+        rel='stylesheet' type='text/css'>
 
- <link
- href="./xeogl-master/examples/js/annotations/annotation-style.css"
- rel="stylesheet"/>
+    <link href="./xeogl-master/examples/js/annotations/annotation-style.css" rel="stylesheet" />
 
- 
+
 </head>
+
 <body>
-<script>
+    <script>
 
-    //------------------------------------------------------------------------------------------------------------------
-    // MODEL HEIRARCHY STUFF
-    //------------------------------------------------------------------------------------------------------------------
-     var model = new xeogl.GLTFModel({
-        id: "Neurons",
-        src: "./despina/new/neurons.gltf",
-       // src: "./anat/aaa/mir2.gltf",
-        handleNode: (function () { // Callback fired for each glTF scene node
-            var objectCount = 0;
-            return function (nodeInfo, actions) {
-                if (nodeInfo.mesh !== undefined) { // glTF node has a mesh
-                    actions.createObject = { // Create a xeogl.Object for this glTF scene node
-                        //id: "putamen." + objectCount++
-                        id: nodeInfo.name,
-                        clippable: true 
-                    };
-                }
-                return true; // Descend into this glTF scene node
-            };
-        })()
-    });
-
- 
-    var model2 = new xeogl.GLTFModel({
-        id: "body",
-        src: "./despina/new/lewytex.gltf",
-       // src: "./anat/aaa/mir2.gltf",
-        handleNode: (function () { // Callback fired for each glTF scene node
-            var objectCount = 0;
-            return function (nodeInfo, actions) {
-                if (nodeInfo.mesh !== undefined) { // glTF node has a mesh
-                    actions.createObject = { // Create a xeogl.Object for this glTF scene node
-                        //id: "putamen." + objectCount++
-                        id: nodeInfo.name,
-                        clippable: true 
-                    };
-                }
-                return true; // Descend into this glTF scene node
-            };
-        })()
-    });
-
-        console.log(model.id);  
+        //------------------------------------------------------------------------------------------------------------------
+        // MODEL HEIRARCHY STUFF
+        //------------------------------------------------------------------------------------------------------------------
+        var model = new xeogl.GLTFModel({
+            id: "Neurons",
+            src: "./despina/new/neurons.gltf",
+            // src: ". /anatomy/mir2.gltf",
+            handleNode: (function () { // Callback fired for each glTF scene node
+                var objectCount = 0;
+                return function (nodeInfo, actions) {
+                    if (nodeInfo.mesh !== undefined) { // glTF node has a mesh
+                        actions.createObject = { // Create a xeogl.Object for this glTF scene node
+                            //id: "putamen." + objectCount++
+                            id: nodeInfo.name,
+                            clippable: true
+                        };
+                    }
+                    return true; // Descend into this glTF scene node
+                };
+            })()
+        });
 
 
-  </script>
+        var model2 = new xeogl.GLTFModel({
+            id: "body",
+            src: "./despina/new/lewytex.gltf",
+            // src: ". /anatomy/mir2.gltf",
+            handleNode: (function () { // Callback fired for each glTF scene node
+                var objectCount = 0;
+                return function (nodeInfo, actions) {
+                    if (nodeInfo.mesh !== undefined) { // glTF node has a mesh
+                        actions.createObject = { // Create a xeogl.Object for this glTF scene node
+                            //id: "putamen." + objectCount++
+                            id: nodeInfo.name,
+                            clippable: true
+                        };
+                    }
+                    return true; // Descend into this glTF scene node
+                };
+            })()
+        });
+
+        console.log(model.id);
+
+
+    </script>
 
     <div id="dat-gui-container"> </div>
 
-    
+
     <div id="contents" class="container">
         <div id="list" class="content">
 
             <h1> Pathophysiology</h1>
             <h2><a href="./home.html"> Back to Main Menu </a></h2>
 
-        <!-- </div>
+            <!-- </div>
 
 
      <div id="contents" class="container"> -->
-        <div>
-        <script>
-        model.on("loaded", function () {
+            <div>
+                <script>
+                    model.on("loaded", function () {
 
-            //function Story() {
-                
-
+                        //function Story() {
 
 
-            var story = new xeogl.AnnotationStory({
-            //new xeogl.AnnotationStory({
-                    speaking: false, 
-                    authoring: true,
-                    text: [
-                        "Navigation: Move around with WASDQE or use the arrow keys with the scroll wheel to zoom. Double click anywhere to zoom quickly or click on the links in the text. Click the Controls menu on the top right to toggle transparency!",
-                        "",
-                        "Parkinson's pathophysiology focuses on the formation of lewy bodies.",
-                        "",
-                        "[A-Synuclein](focusAnnotation(0)) Is a protein that normally affects the neurotransmitter relase in the synaptic cleft. When a large amount of misfolded a-synuclein accumulates in the cell, it causes b-sheet fibrils to form. Multiple fibrils end up binding together and forming the toxic lewy bodies. A-synuclein seeds, can also spread from cell to cell, affecting the whole dopamine network.",
-                        "",
-                        "The inherited form of Parkinson's is associated with mutations in genes encoding a-synuclein resulting its misfold.",
-                        "",
-                        "The sporadic and most common form of Parkinson's is of unkown origin. However,  some of the cases may be explained by the Braak Hypothesis. The Braak Hypothesis suggests that a pathogen enters the nasal cavity, is eventually swallowed and reaches the gastrointestinal system, where it causes lewy body pathology.",
-                        " A [Lewy Body](focusAnnotation(2)) uses the vagus and olfactory nerve to ascend to the brain, where they cause motor symptoms. Note that this hypothesis has not been proven in humans yet, however animal studies seem to supportive of it.",
-                        "",
 
 
-                        "[A-Synuclein](focusAnnotation(0)) is a protein that normaly binds to neuron's cell membrane affecting calcium regulation. Mutations in a-synuclein genes cause misfolding into b-sheet form.",
+                        var story = new xeogl.AnnotationStory({
+                            //new xeogl.AnnotationStory({
+                            speaking: false,
+                            authoring: true,
+                            text: [
+                                "Navigation: Move around with WASDQE or use the arrow keys with the scroll wheel to zoom. Double click anywhere to zoom quickly or click on the links in the text. Click the Controls menu on the top right to toggle transparency!",
+                                "",
+                                "Parkinson's pathophysiology focuses on the formation of lewy bodies.",
+                                "",
+                                "[A-Synuclein](focusAnnotation(0)) Is a protein that normally affects the neurotransmitter relase in the synaptic cleft. When a large amount of misfolded a-synuclein accumulates in the cell, it causes b-sheet fibrils to form. Multiple fibrils end up binding together and forming the toxic lewy bodies. A-synuclein seeds, can also spread from cell to cell, affecting the whole dopamine network.",
+                                "",
+                                "The inherited form of Parkinson's is associated with mutations in genes encoding a-synuclein resulting its misfold.",
+                                "",
+                                "The sporadic and most common form of Parkinson's is of unkown origin. However,  some of the cases may be explained by the Braak Hypothesis. The Braak Hypothesis suggests that a pathogen enters the nasal cavity, is eventually swallowed and reaches the gastrointestinal system, where it causes lewy body pathology.",
+                                " A [Lewy Body](focusAnnotation(2)) uses the vagus and olfactory nerve to ascend to the brain, where they cause motor symptoms. Note that this hypothesis has not been proven in humans yet, however animal studies seem to supportive of it.",
+                                "",
 
-                        "",
-                        "The [Fibril](focusAnnotation(1)) is a build up from excess misfolded A-Synuclein. Fibrils bind together forming lewy bodies.",
-             
-                        "",
-                        "A [Lewy Body](focusAnnotation(2)) is built by misfolded A-Synuclein fibrils. They can spread from cell to cell causing the dopamine network to die.",
-       
-                        "",
-                        "Over time, a [Dopamine neuron with a build up of lewy bodies](focusAnnotation(4)), [damages the neurons](focusAnnotation(5)), causing them to [die](focusAnnotation(6)).",
-                        ""
-                    ],
-                    annotations:
+
+                                "[A-Synuclein](focusAnnotation(0)) is a protein that normaly binds to neuron's cell membrane affecting calcium regulation. Mutations in a-synuclein genes cause misfolding into b-sheet form.",
+
+                                "",
+                                "The [Fibril](focusAnnotation(1)) is a build up from excess misfolded A-Synuclein. Fibrils bind together forming lewy bodies.",
+
+                                "",
+                                "A [Lewy Body](focusAnnotation(2)) is built by misfolded A-Synuclein fibrils. They can spread from cell to cell causing the dopamine network to die.",
+
+                                "",
+                                "Over time, a [Dopamine neuron with a build up of lewy bodies](focusAnnotation(4)), [damages the neurons](focusAnnotation(5)), causing them to [die](focusAnnotation(6)).",
+                                ""
+                            ],
+                            annotations:
                                 [
 
                                     {
@@ -154,51 +154,51 @@
                                         "title": "A-Synuclein",
                                         "desc": "A protein that normaly affects the release of neurotransmitters in the synapse.",
                                         "eye": [
-		30.78139,
-		45.99941,
-		89.59402
-	],
-	"look": [
-		30.18143,
-		43.49745,
-		93.95879
-	],
-	"up": [
-		-0.06721,
-		0.86959,
-		0.48938
-	],
+                                            30.78139,
+                                            45.99941,
+                                            89.59402
+                                        ],
+                                        "look": [
+                                            30.18143,
+                                            43.49745,
+                                            93.95879
+                                        ],
+                                        "up": [
+                                            -0.06721,
+                                            0.86959,
+                                            0.48938
+                                        ],
                                         "pinShown": true,
                                         "labelShown": true,
                                         "mesh": "a_synuclein_copy"
                                     },
                                     {
                                         "primIndex": 97569,
-	"bary": [
-		0.39931,
-		0.33767,
-		0.26302
-	],
+                                        "bary": [
+                                            0.39931,
+                                            0.33767,
+                                            0.26302
+                                        ],
                                         "offset": 0.2,
                                         "occludable": false,
                                         "glyph": "2",
                                         "title": "Fibril",
                                         "desc": "A build up from excess misfolded a-synuclein. Fibrils bind together forming lewy bodies.",
                                         "eye": [
-		27.03461,
-		45.01186,
-		88.68652
-	],
-	"look": [
-		26.97537,
-		44.76479,
-		89.11755
-	],
-	"up": [
-		-0.06721,
-		0.86959,
-		0.48938
-	],
+                                            27.03461,
+                                            45.01186,
+                                            88.68652
+                                        ],
+                                        "look": [
+                                            26.97537,
+                                            44.76479,
+                                            89.11755
+                                        ],
+                                        "up": [
+                                            -0.06721,
+                                            0.86959,
+                                            0.48938
+                                        ],
                                         "pinShown": true,
                                         "labelShown": true,
                                         "mesh": "Cube.004"
@@ -206,124 +206,124 @@
                                     },
                                     {
                                         "primIndex": 91293,
-	"bary": [
-		0.46492,
-		0.10497,
-		0.43012
-	],
+                                        "bary": [
+                                            0.46492,
+                                            0.10497,
+                                            0.43012
+                                        ],
                                         "offset": 0.2,
                                         "occludable": false,
                                         "glyph": "3",
                                         "title": "Lewy Body",
                                         "desc": "Built by misfolded a -synuclein fibrils.",
                                         "eye": [
-		19.86473,
-		46.60278,
-		90.21301
-	],
-	"look": [
-		20.1622,
-		46.26455,
-		90.43102
-	],
-	"up": [
-		0.54532,
-		0.73701,
-		0.39956
-	],
+                                            19.86473,
+                                            46.60278,
+                                            90.21301
+                                        ],
+                                        "look": [
+                                            20.1622,
+                                            46.26455,
+                                            90.43102
+                                        ],
+                                        "up": [
+                                            0.54532,
+                                            0.73701,
+                                            0.39956
+                                        ],
                                         "pinShown": true,
                                         "labelShown": true,
                                         "mesh": "Lewy_body_objPM3D_Sphere3D2"
                                     },
                                     {
                                         "primIndex": 85287,
-	"bary": [
-		0.10439,
-		0.84399,
-		0.05162
-	],
+                                        "bary": [
+                                            0.10439,
+                                            0.84399,
+                                            0.05162
+                                        ],
                                         "offset": 0.2,
                                         "occludable": false,
                                         "glyph": "4",
                                         "title": "Nucleus",
                                         "desc": "Cell nucleus of the neuron",
                                         "eye": [
-		22.10422,
-		47.41105,
-		90.63752
-	],
-	"look": [
-		26.96167,
-		41.88815,
-		94.19725
-	],
-	"up": [
-		0.54532,
-		0.73701,
-		0.39956
-	],
+                                            22.10422,
+                                            47.41105,
+                                            90.63752
+                                        ],
+                                        "look": [
+                                            26.96167,
+                                            41.88815,
+                                            94.19725
+                                        ],
+                                        "up": [
+                                            0.54532,
+                                            0.73701,
+                                            0.39956
+                                        ],
                                         "pinShown": true,
                                         "labelShown": true,
                                         "mesh": "Nucleus_objPM3D_Sphere3D1"
                                     },
                                     {
                                         "primIndex": 310131,
-	"bary": [
-		0.51464,
-		0.89969,
-		-0.41432
-	],
+                                        "bary": [
+                                            0.51464,
+                                            0.89969,
+                                            -0.41432
+                                        ],
                                         "offset": 0.2,
                                         "occludable": false,
                                         "glyph": "5",
                                         "title": "Dopamine neuron with a build up of lewy bodies",
                                         "desc": "",
                                         "eye": [
-		17.56532,
-		90.51419,
-		261.17377
-	],
-	"look": [
-		-48.56577,
-		-27.59634,
-		61.34949
-	],
-	"up": [
-		-0.15366,
-		0.87213,
-		-0.4646
-	],
+                                            17.56532,
+                                            90.51419,
+                                            261.17377
+                                        ],
+                                        "look": [
+                                            -48.56577,
+                                            -27.59634,
+                                            61.34949
+                                        ],
+                                        "up": [
+                                            -0.15366,
+                                            0.87213,
+                                            -0.4646
+                                        ],
                                         "pinShown": true,
                                         "labelShown": true,
                                         "mesh": "PD_neurons_mapsSkin_ZSphere9"
                                     },
                                     {
                                         "primIndex": 1217508,
-	"bary": [
-		0.17385,
-		-0.08388,
-		0.91003
-	],
+                                        "bary": [
+                                            0.17385,
+                                            -0.08388,
+                                            0.91003
+                                        ],
                                         "offset": 0.2,
                                         "occludable": false,
                                         "glyph": "6",
                                         "title": "Dying dopamine neuron",
                                         "desc": "",
                                         "eye": [
-		146.32237,
-		55.83175,
-		44.25845
-	],
-	"look": [
-		145.89894,
-		55.58962,
-		44.14361
-	],
-	"up": [
-		-0.46629,
-		0.87556,
-		-0.12659
-	],
+                                            146.32237,
+                                            55.83175,
+                                            44.25845
+                                        ],
+                                        "look": [
+                                            145.89894,
+                                            55.58962,
+                                            44.14361
+                                        ],
+                                        "up": [
+                                            -0.46629,
+                                            0.87556,
+                                            -0.12659
+                                        ],
                                         "pinShown": true,
                                         "labelShown": true,
                                         "mesh": "PD_neurons_mapsSkin_ZSphere9"
@@ -342,20 +342,20 @@
                                         "title": "Dead dopamine neuron",
                                         "desc": "",
                                         "eye": [
-		189.30072,
-		50.78096,
-		-171.91986
-	],
-	"look": [
-		16.36221,
-		-108.66862,
-		50.12362
-	],
-	"up": [
-		-0.30295,
-		0.87011,
-		0.38883
-	],
+                                            189.30072,
+                                            50.78096,
+                                            -171.91986
+                                        ],
+                                        "look": [
+                                            16.36221,
+                                            -108.66862,
+                                            50.12362
+                                        ],
+                                        "up": [
+                                            -0.30295,
+                                            0.87011,
+                                            0.38883
+                                        ],
                                         "pinShown": true,
                                         "labelShown": true,
                                         "mesh": "PD_neurons_mapsSkin_ZSphere9"
@@ -363,268 +363,149 @@
                         });
 
                     });
-            
-            </script>
+
+                </script>
+            </div>
         </div>
     </div>
-</div>
 
 
 
 
-<script>
+    <script>
 
-//------------------------------------------------------------------------------------------------------------------
-//animation
-//------------------------------------------------------------------------------------------------------------------
-/* 
-model2.on("loaded", function () {
-    var gunDir = 0;
-        var gunDirInc = -0.95;
-        model.scene.on("tick", function () {
-            gunDir += gunDirInc;
-            if (gunDir < -10 || gunDir > 2) {
-                gunDirInc *= -1;
-            }
-            model2.components["Cube.004"].rotate([0, 0, 4], gunDirInc);
-        });
-    });
-   */
-//------------------------------------------------------------------------------------------------------------------
-// CAMERA STUFF//
-//------------------------------------------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------
+        //animation
+        //------------------------------------------------------------------------------------------------------------------
+        /* 
+        model2.on("loaded", function () {
+            var gunDir = 0;
+                var gunDirInc = -0.95;
+                model.scene.on("tick", function () {
+                    gunDir += gunDirInc;
+                    if (gunDir < -10 || gunDir > 2) {
+                        gunDirInc *= -1;
+                    }
+                    model2.components["Cube.004"].rotate([0, 0, 4], gunDirInc);
+                });
+            });
+           */
+        //------------------------------------------------------------------------------------------------------------------
+        // CAMERA STUFF//
+        //------------------------------------------------------------------------------------------------------------------
 
-    //console.log(model.id); 
-   // var camera = model.scene.camera;
-    new xeogl.CameraControl();
+        //console.log(model.id); 
+        // var camera = model.scene.camera;
+        new xeogl.CameraControl();
 
-    var cameraControl = new xeogl.CameraControl({
-        doublePickFlyTo: true
+        var cameraControl = new xeogl.CameraControl({
+            doublePickFlyTo: true
         });
         var cameraFlight = new xeogl.CameraFlightAnimation();
 
-    
-    var scene = model.scene;
-    var camera = scene.camera;
-    var input = scene.input;
+
+        var scene = model.scene;
+        var camera = scene.camera;
+        var input = scene.input;
 
 
-    scene.camera.eye = [			
- 	193.95245,
-		73.70277,
-		-151.83795
-	],
-    scene.camera.look = [
-	21.01395,
-		-85.74712,
-		70.2056
-    ],
-    scene.camera.up =  [
-    -0.30295,
-		0.87011,
-		0.38883
-	],
+        scene.camera.eye = [
+            193.95245,
+            73.70277,
+            -151.83795
+        ],
+            scene.camera.look = [
+                21.01395,
+                -85.74712,
+                70.2056
+            ],
+            scene.camera.up = [
+                -0.30295,
+                0.87011,
+                0.38883
+            ],
 
-/*  // fucntions for mouse over hightlighing that clash with the menu
-    cameraControl.on("hoverEnter", function (hit) {
-        hit.mesh.ghosted = false;
-    });
-    cameraControl.on("hoverOut", function (hit) {
-        hit.mesh.ghosted = true;
-    }); */
+            /*  // fucntions for mouse over hightlighing that clash with the menu
+                cameraControl.on("hoverEnter", function (hit) {
+                    hit.mesh.ghosted = false;
+                });
+                cameraControl.on("hoverOut", function (hit) {
+                    hit.mesh.ghosted = true;
+                }); */
 
-    cameraControl.on("picked", function (hit) {
-        var mesh = hit.mesh;
-        if (input.keyDown[input.KEY_SHIFT]) {
-            hit.mesh.selected = !hit.mesh.selected;
-        } else {
-            cameraFlight.flyTo(mesh);
-        }
-    });
+            cameraControl.on("picked", function (hit) {
+                var mesh = hit.mesh;
+                if (input.keyDown[input.KEY_SHIFT]) {
+                    hit.mesh.selected = !hit.mesh.selected;
+                } else {
+                    cameraFlight.flyTo(mesh);
+                }
+            });
 
-    cameraControl.on("pickedNothing", function (hit) {
-        cameraFlight.flyTo(model);
-    });
+        cameraControl.on("pickedNothing", function (hit) {
+            cameraFlight.flyTo(model);
+        });
 
-   
+
         scene.ghostMaterial.edgeAlpha = 0.3;
 
         scene.ghostMaterial.edgeWidth = 0.1;
         scene.ghostMaterial.fill = 0.0;
 
-   // A Skybox that wraps our Meshes in a cloudy background
-   var skybox = new xeogl.Skybox({
-       // src: "./xeogl-master/examples/textures/skybox/miramarClouds.jpg",
-        src:  "./despina/requestedblue.png",
-        //src: "./sites/AnatomyProject/files/simba/models/miramar.png",
-        size: 1000 // Default
-    });
+        // A Skybox that wraps our Meshes in a cloudy background
+        var skybox = new xeogl.Skybox({
+            src: "./despina/requestedblue.png",
+            size: 1000 // Default
+        });
 
-    // Get the default Scene off the Skybox
-    var scene = skybox.scene;
-    var camera = scene.camera;
-   // var spinning = true;
-   
-   
-   //------------------------------------------------------------------------------------------------------------------
-    // GHOSTING FUNCTIONALITY
-    //------------------------------------------------------------------------------------------------------------------
-    //menu fuctions i want to put somwhere else
-     var Menu1 = function () {
+        // Get the default Scene off the Skybox
+        var scene = skybox.scene;
+        var camera = scene.camera;
+        // var spinning = true;
 
-        var ghostMaterial = model.ghostMaterial;
-       // amygdala.ghosted = true;
-        this["ghosted"] = false;
-        var self = this;
-        var lastGhostMaterialPreset;
-        var update = function () {
-            model.ghosted = !!self["ghosted"];
-            var preset = self["ghostMaterial.preset"];
-            if (lastGhostMaterialPreset !== preset) {
-                ghostMaterial.preset = preset;
-                lastGhostMaterialPreset = preset;
-            } 
-            requestAnimationFrame(update);
-        };
-        update();
-    };
 
-    /*
-    var Menu2 = function () {
+        //------------------------------------------------------------------------------------------------------------------
+        // GHOSTING FUNCTIONALITY
+        //------------------------------------------------------------------------------------------------------------------
+        //menu fuctions i want to put somwhere else
+        var Menu1 = function () {
 
-        var ghostMaterial = mid.ghostMaterial;
-        // amygdala.ghosted = true;
-        this["ghosted"] = false;
-        var self = this;
-        var lastGhostMaterialPreset;
-        var update = function () {
-            mid.ghosted = !!self["ghosted"];
-            var preset = self["ghostMaterial.preset"];
-            if (lastGhostMaterialPreset !== preset) {
-                ghostMaterial.preset = preset;
-                lastGhostMaterialPreset = preset;
-            } 
-            requestAnimationFrame(update);
-        };
-        update();
+            var ghostMaterial = model.ghostMaterial;
+            // amygdala.ghosted = true;
+            this["ghosted"] = false;
+            var self = this;
+            var lastGhostMaterialPreset;
+            var update = function () {
+                model.ghosted = !!self["ghosted"];
+                var preset = self["ghostMaterial.preset"];
+                if (lastGhostMaterialPreset !== preset) {
+                    ghostMaterial.preset = preset;
+                    lastGhostMaterialPreset = preset;
+                }
+                requestAnimationFrame(update);
+            };
+            update();
         };
 
-    var Menu3 = function () {
 
-        var ghostMaterial = model.ghostMaterial;
-        this["ghosted"] = true;
-        var self = this;
-        var lastGhostMaterialPreset;
-        var update = function () {
-            model.ghosted = !!self["ghosted"];
-            var preset = self["ghostMaterial.preset"];
-            if (lastGhostMaterialPreset !== preset) {
-                ghostMaterial.preset = preset;
-                lastGhostMaterialPreset = preset;
-            } 
-            requestAnimationFrame(update);
-        };
-        update();
-        };
+        var gui = new dat.GUI({ autoPlace: false, top: 0, width: 400 });
 
-    var Menu4 = function () {
+        document.getElementById('dat-gui-container').appendChild(gui.domElement);
 
-        var ghostMaterial = cortex.ghostMaterial;
-        this["ghosted"] = true;
-        var self = this;
-        var lastGhostMaterialPreset;
-        var update = function () {
-            cortex.ghosted = !!self["ghosted"];
-            var preset = self["ghostMaterial.preset"];
-            if (lastGhostMaterialPreset !== preset) {
-                ghostMaterial.preset = preset;
-                lastGhostMaterialPreset = preset;
-            } 
-            requestAnimationFrame(update);
-    };
-    update();
-    };
- */
- 
-    var gui = new dat.GUI({autoPlace: false, top: 0, width: 400});
-
-    document.getElementById('dat-gui-container').appendChild(gui.domElement);
-
-    var menu = new Menu1();
-    var ghostFolder = gui.addFolder('neurons');
-    ghostFolder.add(menu, 'ghosted', true);
-    
-/*     var menu = new Menu4();
-    var ghostFolder = gui.addFolder('Cortex');
-    ghostFolder.add(menu, 'ghosted', true);
-    
-    var menu = new Menu2();
-    var ghostFolder = gui.addFolder('Midbrain');
-    ghostFolder.add(menu, 'ghosted', true); 
-    
-    var menu = new Menu3();
-    var ghostFolder = gui.addFolder('Brain');
-    ghostFolder.add(menu, 'ghosted', true); */
-    
-
-    function typedToJS(arry) {
-        return [arry[0] * 255, arry[1] * 255, arry[2] * 255];
-    }
-    function JSToTyped(arry) {
-        return [arry[0] / 255, arry[1] / 255, arry[2] / 255];
-    } 
+        var menu = new Menu1();
+        var ghostFolder = gui.addFolder('neurons');
+        ghostFolder.add(menu, 'ghosted', true);
 
 
-//------------------------------------------------------------------------------------------------------------------
-// ANNOTATION STUFF
 
-/* 
-// helps you make annotations quickly
-    new xeogl.CameraControl(); // User camera control
-    const createAnnotationsOnClick = true;
-    if (createAnnotationsOnClick) {
+        function typedToJS(arry) {
+            return [arry[0] * 255, arry[1] * 255, arry[2] * 255];
+        }
+        function JSToTyped(arry) {
+            return [arry[0] / 255, arry[1] / 255, arry[2] / 255];
+        }
 
-        var i = -1;
-
-        scene.input.on("mouseclicked", function (coords) {
-
-            var hit = self.scene.pick({
-                canvasPos: coords,
-                pickSurface: true,
-            //   excludeMeshes: ["nerves.8", "nerves.7", "nerves.1", "nerves.6"]
-            });
-
-            if (hit) {
-
-                var mesh = hit.mesh;
-                var camera = mesh.scene.camera;
-
-                i++;
-                var num = i + 1;
-                var glyph = "" + num;
-
-
-                var annotation = new xeogl.Annotation({
-                    mesh: hit.mesh.id,
-                    primIndex: hit.primIndex,
-                    bary: hit.bary,
-                    glyph: glyph,
-                    title: "Annotation " + num,
-                    desc: "annotation",
-                    eye: camera.eye,
-                    look: camera.look,
-                    up: camera.up,
-                    pinShown: true,
-                    labelShown: true
-                });
-
-                console.log(JSON.stringify(annotation.getJSON(), null, "\t"));
-            }
-        }); 
-    }  
- */
- 
-
-</script>
+    </script>
 </body>
+
 </html>

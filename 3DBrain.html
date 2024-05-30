@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Parkinsons Anatomy Project</title>
-    <link  rel="icon"   href="dashboard/dundeelogo.ico"  type="image/png"/>
+    <link rel="icon" href="dashboard/dundeelogo.ico" type="image/png" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 
-    <link href="./FILES/styles.css" rel="stylesheet"/>
+    <link href="./FILES/styles.css" rel="stylesheet" />
     <script src="./FILES/xeogl.js"></script>
 
     <script src="./FILES/dat.gui.min.js"></script>
@@ -22,593 +23,577 @@
     <script src="./xeogl-master/examples/js/stories/annotationStory.js"></script>
     <!-- script needed for skybox -->
     <script src="./xeogl-master/examples/js/skyboxes/skybox.js"></script>
-<!-- 
-    <link  type="text/css" rel="stylesheet" href="./sites/AnatomyProject/files/simba/css/forms.css"/> -->
 
- <link href="./FILES/story-style.css" rel="stylesheet"/>  
+    <link href="./FILES/story-style.css" rel="stylesheet" />
 
- <link href='https://fonts.googleapis.com/css?family=Exo+2:400,800,900,700,600,500|Roboto:100,300,400,500,700,900'
- rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Exo+2:400,800,900,700,600,500|Roboto:100,300,400,500,700,900'
+        rel='stylesheet' type='text/css'>
 
- <link
- href="./xeogl-master/examples/js/annotations/annotation-style.css"
- rel="stylesheet"/>
- 
+    <link href="./xeogl-master/examples/js/annotations/annotation-style.css" rel="stylesheet" />
+
 </head>
+
 <body>
-<script>
+    <script>
 
-    //------------------------------------------------------------------------------------------------------------------
-    // MODEL HEIRARCHY STUFF
-    //------------------------------------------------------------------------------------------------------------------
-    var model = new xeogl.GLTFModel({
-        id: "Brain",
-        src: "./anat/aaa/new/brain/brainremaining.gltf",
-       // src: "./anat/aaa/mir2.gltf",
-        handleNode: (function () { // Callback fired for each glTF scene node
-            var objectCount = 0;
-            return function (nodeInfo, actions) {
-                if (nodeInfo.mesh !== undefined) { // glTF node has a mesh
-                    actions.createObject = { // Create a xeogl.Object for this glTF scene node
-                        //id: "putamen." + objectCount++
-                        id: nodeInfo.name,
-                        clippable: true 
-                    };
-                }
-                return true; // Descend into this glTF scene node
-            };
-        })()
-    });
-
-    var mid =  new xeogl.GLTFModel({
-                id: "Mid",
-                src: "./anat/aaa/new/midbrain.gltf",
-                handleNode: (function () { // Callback fired for each glTF scene node
+        //------------------------------------------------------------------------------------------------------------------
+        // MODEL HEIRARCHY STUFF
+        //------------------------------------------------------------------------------------------------------------------
+        var model = new xeogl.GLTFModel({
+            id: "Brain",
+            src: ". /anatomy/new/brain/brainremaining.gltf",
+            // src: ". /anatomy/mir2.gltf",
+            handleNode: (function () { // Callback fired for each glTF scene node
                 var objectCount = 0;
                 return function (nodeInfo, actions) {
-                if (nodeInfo.mesh !== undefined) { // glTF node has a mesh
-                    actions.createObject = { // Create a xeogl.Object for this glTF scene node
-                        //id: "amygdala1", //+ objectCount++
-                        id: nodeInfo.name,
-                        clippable: true 
-                    };
-                }
-                return true; // Descend into this glTF scene node
-            };
-        })()
-    });
+                    if (nodeInfo.mesh !== undefined) { // glTF node has a mesh
+                        actions.createObject = { // Create a xeogl.Object for this glTF scene node
+                            //id: "putamen." + objectCount++
+                            id: nodeInfo.name,
+                            clippable: true
+                        };
+                    }
+                    return true; // Descend into this glTF scene node
+                };
+            })()
+        });
 
-        var basalganglia =  new xeogl.GLTFModel({
-                id: "BasalGanglia",
-                src: "./anat/aaa/new/basalganglia.gltf",
-                handleNode: (function () { // Callback fired for each glTF scene node
+        var mid = new xeogl.GLTFModel({
+            id: "Mid",
+            src: ". /anatomy/new/midbrain.gltf",
+            handleNode: (function () { // Callback fired for each glTF scene node
                 var objectCount = 0;
                 return function (nodeInfo, actions) {
-                if (nodeInfo.mesh !== undefined) { // glTF node has a mesh
-                    actions.createObject = { // Create a xeogl.Object for this glTF scene node
-                        //id: "amygdala1", //+ objectCount++
-                        id: nodeInfo.name,
-                        clippable: true 
-                    };
-                }
-                return true; // Descend into this glTF scene node
-            };
-        })()
-    });
-    
-    var cortex =  new xeogl.GLTFModel({
-                id: "Cortex",
-                src: "./anat/aaa/new/right_hemisphere_transparent.gltf",
-                handleNode: (function () { // Callback fired for each glTF scene node
+                    if (nodeInfo.mesh !== undefined) { // glTF node has a mesh
+                        actions.createObject = { // Create a xeogl.Object for this glTF scene node
+                            //id: "amygdala1", //+ objectCount++
+                            id: nodeInfo.name,
+                            clippable: true
+                        };
+                    }
+                    return true; // Descend into this glTF scene node
+                };
+            })()
+        });
+
+        var basalganglia = new xeogl.GLTFModel({
+            id: "BasalGanglia",
+            src: ". /anatomy/new/basalganglia.gltf",
+            handleNode: (function () { // Callback fired for each glTF scene node
                 var objectCount = 0;
                 return function (nodeInfo, actions) {
-                if (nodeInfo.mesh !== undefined) { // glTF node has a mesh
-                    actions.createObject = { // Create a xeogl.Object for this glTF scene node
-                        //id: "amygdala1", //+ objectCount++
-                        id: nodeInfo.name,
-                        clippable: true 
-                    };
-                }
-                return true; // Descend into this glTF scene node
-            };
-            // i should assign a texture to this
-        })()
-    });
+                    if (nodeInfo.mesh !== undefined) { // glTF node has a mesh
+                        actions.createObject = { // Create a xeogl.Object for this glTF scene node
+                            //id: "amygdala1", //+ objectCount++
+                            id: nodeInfo.name,
+                            clippable: true
+                        };
+                    }
+                    return true; // Descend into this glTF scene node
+                };
+            })()
+        });
 
-   /*  var anterior_commissure = new xeogl.GLTFModel({
-                id: "anterior_commissure",
-                src: "./anat/aaa/each/anteriorcommisure.gltf",
+        var cortex = new xeogl.GLTFModel({
+            id: "Cortex",
+            src: ". /anatomy/new/right_hemisphere_transparent.gltf",
+            handleNode: (function () { // Callback fired for each glTF scene node
+                var objectCount = 0;
+                return function (nodeInfo, actions) {
+                    if (nodeInfo.mesh !== undefined) { // glTF node has a mesh
+                        actions.createObject = { // Create a xeogl.Object for this glTF scene node
+                            //id: "amygdala1", //+ objectCount++
+                            id: nodeInfo.name,
+                            clippable: true
+                        };
+                    }
+                    return true; // Descend into this glTF scene node
+                };
+            })()
+        });
 
-            });
-    var brainstem = new xeogl.GLTFModel({
-                id: "brainstem",
-                src: "./anat/aaa/each/brainstem55.gltf",
-            });
-
-        console.log(Brain.id);  */
-
-  </script>
+    </script>
 
     <div id="dat-gui-container"> </div>
 
-    
+
     <div id="contents" class="container">
         <div id="list" class="content">
             <h1>The Parkinsonian Brain</h1>
             <h2><a href="./home.html"> Back to Main Menu </a></h2>
-        <!-- </div>
+            <!-- </div>
 
 
      <div id="contents" class="container"> -->
-        <div>
-        <script>
-        model.on("loaded", function () {
+            <div>
+                <script>
+                    model.on("loaded", function () {
 
-            //function Story() {
-                
-            var story = new xeogl.AnnotationStory({
-            //new xeogl.AnnotationStory({
-                    speaking: false, 
-                    authoring: true,
-                    text: [
-                        "Navigation",
-                        "",
-                        "Move around with WASDQE or use the arrow keys with the scroll wheel to zoom. Double click anywhere to zoom quickly or click on the links in the text.",
-                        "Click the Controls menu on the top right to toggle transparency!",
-                        "",
-                        "Brain Guide",
-                        "",
-                        "[Caudate nucleus](focusAnnotation(0)) The caudate nucleus is a C-shaped structure located within the basal ganglia which is crucial in controlling voluntary motor movements, emotion regulation and cognition (memory, learning and attention). Dysfunction of the caudate nucleus can therefore lead to mood and movement disorder. " ,
-                        "",
-                        "[Thalamus](focusAnnotation(1)) The thalamus is located above the brainstem and below the cerebral cortex. It is important in regulating consciousness, sleep and alertness and also acts as a relay for sensory information traveling to and from the cerebral cortex.",
-                        "",
-                        "[Globus Pallidus](focusAnnotation(2)) The globus pallidus, along with the caudate nucleus, putamen and substantia nigra, plays a critical role in regulating voluntary motor movements, executive function, and emotion regulation.",
-                        "",
-                        "[Putamen](focusAnnotation(3)) The putamen, located within the basal ganglia, is heavily involved in the regulation and coordination of voluntary motor movements. Specifically, it helps in initiating, modulating and inhibiting motor actions which enables a smooth movement execution. It is also involved in procedural learning, which refers to acquiring skills and habits through repetition. Putamen also contributes to cognitive and emotional functions.",
-                        "",
-                        "[Midbrain](focusAnnotation(4)) The midbrain, a small part of the brain located between the forebrain and hindbrain, plays an essential role in auditory and visual processing, motor movement, alertness and temperature regulation. It serves as a critical relay for sensory and motor signals, integrating information from various part of the brain whilst facilitating communication between the forebrain and hindbraintext abut the brain part goes here text abut the brain part goes here.",
-                        "",
-                        "[Cerbral Cortex](focusAnnotation(5)) The cortex is responsible for sensory perception (somatosensation, vision, taste, hearing and smell) language, memory, voluntary movements and cognitions.",
-                        ""
-                    ],
-                    annotations: 
-                    [
-                    {
-                        "primIndex": 4884,
-                        "bary": [
-                            0.05975,
-                            0.48879,
-                            0.45145
-                        ],
-                        "offset": 0.2,
-                        "occludable": false,
-                        "glyph": "1",
-                        "title": "Caudate Nucleus",
-                     //   "desc": "annotation",
-                        "eye": [
-                            19.98512,
-                            7.72952,
-                            72.04007
-                        ],
-                        "look": [
-                            -68.82185,
-                            28.11787,
-                            -24.43816
-                        ],
-                        "up": [
-                            0.10405,
-                            0.98813,
-                            0.11304
-                        ],
-                        "pinShown": true,
-                        "labelShown": true,
-                        "mesh": "Caudate_nucleus1"
-                        },
-                          {
-                            "primIndex": 405,
-                            "bary": [
-                                0.37202,
-                                0.33741,
-                                0.29056
+                        //function Story() {
+
+                        var story = new xeogl.AnnotationStory({
+                            //new xeogl.AnnotationStory({
+                            speaking: false,
+                            authoring: true,
+                            text: [
+                                "Navigation",
+                                "",
+                                "Move around with WASDQE or use the arrow keys with the scroll wheel to zoom. Double click anywhere to zoom quickly or click on the links in the text.",
+                                "Click the Controls menu on the top right to toggle transparency!",
+                                "",
+                                "Brain Guide",
+                                "",
+                                "[Caudate nucleus](focusAnnotation(0)) The caudate nucleus is a C-shaped structure located within the basal ganglia which is crucial in controlling voluntary motor movements, emotion regulation and cognition (memory, learning and attention). Dysfunction of the caudate nucleus can therefore lead to mood and movement disorder. ",
+                                "",
+                                "[Thalamus](focusAnnotation(1)) The thalamus is located above the brainstem and below the cerebral cortex. It is important in regulating consciousness, sleep and alertness and also acts as a relay for sensory information traveling to and from the cerebral cortex.",
+                                "",
+                                "[Globus Pallidus](focusAnnotation(2)) The globus pallidus, along with the caudate nucleus, putamen and substantia nigra, plays a critical role in regulating voluntary motor movements, executive function, and emotion regulation.",
+                                "",
+                                "[Putamen](focusAnnotation(3)) The putamen, located within the basal ganglia, is heavily involved in the regulation and coordination of voluntary motor movements. Specifically, it helps in initiating, modulating and inhibiting motor actions which enables a smooth movement execution. It is also involved in procedural learning, which refers to acquiring skills and habits through repetition. Putamen also contributes to cognitive and emotional functions.",
+                                "",
+                                "[Midbrain](focusAnnotation(4)) The midbrain, a small part of the brain located between the forebrain and hindbrain, plays an essential role in auditory and visual processing, motor movement, alertness and temperature regulation. It serves as a critical relay for sensory and motor signals, integrating information from various part of the brain whilst facilitating communication between the forebrain and hindbraintext abut the brain part goes here text abut the brain part goes here.",
+                                "",
+                                "[Cerbral Cortex](focusAnnotation(5)) The cortex is responsible for sensory perception (somatosensation, vision, taste, hearing and smell) language, memory, voluntary movements and cognitions.",
+                                ""
                             ],
-                            "offset": 0.2,
-                            "occludable": false,
-                            "glyph": "2",
-                            "title": "Thalamus",
-                     //       "desc": "annotation",
-                            "eye": [
-                                35.89267,
-                                -6.08431,
-                                -12.29078
-                            ],
-                            "look": [
-                                -4.07299,
-                                2.86832,
-                                29.15961
-                            ],
-                            "up": [
-                                0.10664,
-                                0.98813,
-                                -0.1106
-                            ],
-                            "pinShown": true,
-                            "labelShown": true,
-                            "mesh": "Right_thalamus1"
-                        },
-                        {
-                            "primIndex": 28017,
-                            "bary": [
-                                0.25278,
-                                0.02557,
-                                0.72165
-                            ],
-                            "offset": 0.2,
-                            "occludable": false,
-                            "glyph": "3",
-                            "title": "Globus Pallidus",
-                       //     "desc": "annotation",
-                            "eye": [
-                                26.94068,
-                                -21.5449,
-                                65.34349
-                            ],
-                            "look": [
-                                -1.66328,
-                                10.70909,
-                                22.62323
-                            ],
-                            "up": [
-                                0.29567,
-                                0.84711,
-                                0.4416
-                            ],
-                            "pinShown": true,
-                            "labelShown": true,
-                            "mesh": "Left_globus_pallidus"
-                        },
-                        {
-                            "primIndex": 45342,
-                            "bary": [
-                                0.87966,
-                                0.40571,
-                                -0.28537
-                            ],
-                            "offset": 0.2,
-                            "occludable": false,
-                            "glyph": "4",
-                            "title": "Putamen",
-                      //      "desc": "annotation",
-                            "eye": [
-                                12.82764,
-                                -1.20701,
-                                83.49411
-                            ],
-                            "look": [
-                                8.59833,
-                                16.81128,
-                                61.07521
-                            ],
-                            "up": [
-                                0.1149,
-                                0.78479,
-                                0.60905
-                            ],
-                            "pinShown": true,
-                            "labelShown": true,
-                            "mesh": "Left_putamen1"
-                        },
-                        {
-                        "primIndex": 26724,
-                        "bary": [
-                            0.14411,
-                            0.50515,
-                            0.35074
-                        ],
-                        "primIndex": 26250,
-                        "bary": [
-                            0.21585,
-                            0.09517,
-                            0.68898
-                        ],
-                        "offset": 0.2,
-                        "occludable": false,
-                        "glyph": "5",
-                        "title": "Midbrain",
-                      //  "desc": "annotation",
-                        "eye": [
-                            49.0648,
-                            -0.15128,
-                            0.76485
-                        ],
-                        "look": [
-                            -6.99069,
-                            1.1812,
-                            20.4101
-                        ],
-                        "up": [
-                            0.02116,
-                            0.99975,
-                            -0.00742
-                        ],
-                        "pinShown": true,
-                        "labelShown": true,
-                        "mesh": "Midbrain"
-                                        },
-                        {
-                            "primIndex": 550734,
-                            "bary": [
-                                -0.93422,
-                                2.68881,
-                                -0.75459
-                            ],
-                            "offset": 0.2,
-                            "occludable": false,
-                            "glyph": "6",
-                            "title": "Cortex",
-                          //  "desc": "annotation",
-                            "eye": [
-                                140.18819,
-                                15.62678,
-                                46.98439
-                            ],
-                            "look": [
-                                9.51706,
-                                26.94349,
-                                38.64121
-                            ],
-                            "up": [
-                                0.08593,
-                                0.99629,
-                                0.00549
-                            ],
-                            "pinShown": true,
-                            "labelShown": true,
-                        "mesh": "Right_Hemisphere_transparent"
-                    }]
-                });
-            
-              });
-            
-            </script>
+                            annotations:
+                                [
+                                    {
+                                        "primIndex": 4884,
+                                        "bary": [
+                                            0.05975,
+                                            0.48879,
+                                            0.45145
+                                        ],
+                                        "offset": 0.2,
+                                        "occludable": false,
+                                        "glyph": "1",
+                                        "title": "Caudate Nucleus",
+                                        //   "desc": "annotation",
+                                        "eye": [
+                                            19.98512,
+                                            7.72952,
+                                            72.04007
+                                        ],
+                                        "look": [
+                                            -68.82185,
+                                            28.11787,
+                                            -24.43816
+                                        ],
+                                        "up": [
+                                            0.10405,
+                                            0.98813,
+                                            0.11304
+                                        ],
+                                        "pinShown": true,
+                                        "labelShown": true,
+                                        "mesh": "Caudate_nucleus1"
+                                    },
+                                    {
+                                        "primIndex": 405,
+                                        "bary": [
+                                            0.37202,
+                                            0.33741,
+                                            0.29056
+                                        ],
+                                        "offset": 0.2,
+                                        "occludable": false,
+                                        "glyph": "2",
+                                        "title": "Thalamus",
+                                        //       "desc": "annotation",
+                                        "eye": [
+                                            35.89267,
+                                            -6.08431,
+                                            -12.29078
+                                        ],
+                                        "look": [
+                                            -4.07299,
+                                            2.86832,
+                                            29.15961
+                                        ],
+                                        "up": [
+                                            0.10664,
+                                            0.98813,
+                                            -0.1106
+                                        ],
+                                        "pinShown": true,
+                                        "labelShown": true,
+                                        "mesh": "Right_thalamus1"
+                                    },
+                                    {
+                                        "primIndex": 28017,
+                                        "bary": [
+                                            0.25278,
+                                            0.02557,
+                                            0.72165
+                                        ],
+                                        "offset": 0.2,
+                                        "occludable": false,
+                                        "glyph": "3",
+                                        "title": "Globus Pallidus",
+                                        //     "desc": "annotation",
+                                        "eye": [
+                                            26.94068,
+                                            -21.5449,
+                                            65.34349
+                                        ],
+                                        "look": [
+                                            -1.66328,
+                                            10.70909,
+                                            22.62323
+                                        ],
+                                        "up": [
+                                            0.29567,
+                                            0.84711,
+                                            0.4416
+                                        ],
+                                        "pinShown": true,
+                                        "labelShown": true,
+                                        "mesh": "Left_globus_pallidus"
+                                    },
+                                    {
+                                        "primIndex": 45342,
+                                        "bary": [
+                                            0.87966,
+                                            0.40571,
+                                            -0.28537
+                                        ],
+                                        "offset": 0.2,
+                                        "occludable": false,
+                                        "glyph": "4",
+                                        "title": "Putamen",
+                                        //      "desc": "annotation",
+                                        "eye": [
+                                            12.82764,
+                                            -1.20701,
+                                            83.49411
+                                        ],
+                                        "look": [
+                                            8.59833,
+                                            16.81128,
+                                            61.07521
+                                        ],
+                                        "up": [
+                                            0.1149,
+                                            0.78479,
+                                            0.60905
+                                        ],
+                                        "pinShown": true,
+                                        "labelShown": true,
+                                        "mesh": "Left_putamen1"
+                                    },
+                                    {
+                                        "primIndex": 26724,
+                                        "bary": [
+                                            0.14411,
+                                            0.50515,
+                                            0.35074
+                                        ],
+                                        "primIndex": 26250,
+                                        "bary": [
+                                            0.21585,
+                                            0.09517,
+                                            0.68898
+                                        ],
+                                        "offset": 0.2,
+                                        "occludable": false,
+                                        "glyph": "5",
+                                        "title": "Midbrain",
+                                        //  "desc": "annotation",
+                                        "eye": [
+                                            49.0648,
+                                            -0.15128,
+                                            0.76485
+                                        ],
+                                        "look": [
+                                            -6.99069,
+                                            1.1812,
+                                            20.4101
+                                        ],
+                                        "up": [
+                                            0.02116,
+                                            0.99975,
+                                            -0.00742
+                                        ],
+                                        "pinShown": true,
+                                        "labelShown": true,
+                                        "mesh": "Midbrain"
+                                    },
+                                    {
+                                        "primIndex": 550734,
+                                        "bary": [
+                                            -0.93422,
+                                            2.68881,
+                                            -0.75459
+                                        ],
+                                        "offset": 0.2,
+                                        "occludable": false,
+                                        "glyph": "6",
+                                        "title": "Cortex",
+                                        //  "desc": "annotation",
+                                        "eye": [
+                                            140.18819,
+                                            15.62678,
+                                            46.98439
+                                        ],
+                                        "look": [
+                                            9.51706,
+                                            26.94349,
+                                            38.64121
+                                        ],
+                                        "up": [
+                                            0.08593,
+                                            0.99629,
+                                            0.00549
+                                        ],
+                                        "pinShown": true,
+                                        "labelShown": true,
+                                        "mesh": "Right_Hemisphere_transparent"
+                                    }]
+                        });
+
+                    });
+
+                </script>
+            </div>
         </div>
     </div>
-</div>
 
 
 
 
-<script>
+    <script>
 
 
-  
-//------------------------------------------------------------------------------------------------------------------
-// CAMERA STUFF//
-//------------------------------------------------------------------------------------------------------------------
 
-    //console.log(model.id); 
-   // var camera = model.scene.camera;
-    new xeogl.CameraControl();
+        //------------------------------------------------------------------------------------------------------------------
+        // CAMERA STUFF//
+        //------------------------------------------------------------------------------------------------------------------
 
-    var cameraControl = new xeogl.CameraControl({
-        doublePickFlyTo: true
+        //console.log(model.id); 
+        // var camera = model.scene.camera;
+        new xeogl.CameraControl();
+
+        var cameraControl = new xeogl.CameraControl({
+            doublePickFlyTo: true
         });
         var cameraFlight = new xeogl.CameraFlightAnimation();
 
-    
-    var scene = model.scene;
-    var camera = scene.camera;
-    var input = scene.input;
 
-    camera.eye = [	140.18819,
-		15.62678,
-		46.98439];
-    camera.look = [9.51706,
-		26.94349,
-		38.64121];
-    camera.up = [0.08593,
-		0.99629,
-		0.00549];
+        var scene = model.scene;
+        var camera = scene.camera;
+        var input = scene.input;
 
-
-/*  // fucntions for mouse over hightlighing that clash with the menu
-    cameraControl.on("hoverEnter", function (hit) {
-        hit.mesh.ghosted = false;
-    });
-    cameraControl.on("hoverOut", function (hit) {
-        hit.mesh.ghosted = true;
-    }); */
-
-    cameraControl.on("picked", function (hit) {
-        var mesh = hit.mesh;
-        if (input.keyDown[input.KEY_SHIFT]) {
-            hit.mesh.selected = !hit.mesh.selected;
-        } else {
-            cameraFlight.flyTo(mesh);
-        }
-    });
-
-    cameraControl.on("pickedNothing", function (hit) {
-        cameraFlight.flyTo(model);
-    });
-
-    scene.highlightMaterial.fillAlpha = 0.6;
-    scene.highlightMaterial.edgeAlpha = 0.6;
-    scene.highlightMaterial.edgeColor = [0, 0, 0];
-    scene.highlightMaterial.edgeWidth = 2;
-
-   // A Skybox that wraps our Meshes in a cloudy background
-   var skybox = new xeogl.Skybox({
-        src: "FILES/miramarClouds.jpg",
-        //src: "./sites/AnatomyProject/files/simba/models/miramar.png",
-        size: 1000 // Default
-    });
-
-    // Get the default Scene off the Skybox
-    var scene = skybox.scene;
-    var camera = scene.camera;
-   // var spinning = true;
-   
-   
-   //------------------------------------------------------------------------------------------------------------------
-    // GHOSTING FUNCTIONALITY
-    //------------------------------------------------------------------------------------------------------------------
-    //menu fuctions i want to put somwhere else
-    var Menu1 = function () {
-
-        var ghostMaterial = basalganglia.ghostMaterial;
-       // amygdala.ghosted = true;
-        this["ghosted"] = false;
-        var self = this;
-        var lastGhostMaterialPreset;
-        var update = function () {
-            basalganglia.ghosted = !!self["ghosted"];
-            var preset = self["ghostMaterial.preset"];
-            if (lastGhostMaterialPreset !== preset) {
-                ghostMaterial.preset = preset;
-                lastGhostMaterialPreset = preset;
-            } 
-            requestAnimationFrame(update);
-        };
-        update();
-    };
-
-    var Menu2 = function () {
-
-        var ghostMaterial = mid.ghostMaterial;
-        // amygdala.ghosted = true;
-        this["ghosted"] = false;
-        var self = this;
-        var lastGhostMaterialPreset;
-        var update = function () {
-            mid.ghosted = !!self["ghosted"];
-            var preset = self["ghostMaterial.preset"];
-            if (lastGhostMaterialPreset !== preset) {
-                ghostMaterial.preset = preset;
-                lastGhostMaterialPreset = preset;
-            } 
-            requestAnimationFrame(update);
-        };
-        update();
-        };
-
-    var Menu3 = function () {
-
-        var ghostMaterial = model.ghostMaterial;
-        this["ghosted"] = true;
-        var self = this;
-        var lastGhostMaterialPreset;
-        var update = function () {
-            model.ghosted = !!self["ghosted"];
-            var preset = self["ghostMaterial.preset"];
-            if (lastGhostMaterialPreset !== preset) {
-                ghostMaterial.preset = preset;
-                lastGhostMaterialPreset = preset;
-            } 
-            requestAnimationFrame(update);
-        };
-        update();
-        };
-
-    var Menu4 = function () {
-
-        var ghostMaterial = cortex.ghostMaterial;
-        this["ghosted"] = true;
-        var self = this;
-        var lastGhostMaterialPreset;
-        var update = function () {
-            cortex.ghosted = !!self["ghosted"];
-            var preset = self["ghostMaterial.preset"];
-            if (lastGhostMaterialPreset !== preset) {
-                ghostMaterial.preset = preset;
-                lastGhostMaterialPreset = preset;
-            } 
-            requestAnimationFrame(update);
-    };
-    update();
-    };
+        camera.eye = [140.18819,
+            15.62678,
+            46.98439];
+        camera.look = [9.51706,
+            26.94349,
+            38.64121];
+        camera.up = [0.08593,
+            0.99629,
+            0.00549];
 
 
-
-    var gui = new dat.GUI({autoPlace: false, top: 0, width: 400});
-
-    document.getElementById('dat-gui-container').appendChild(gui.domElement);
-
-    var menu = new Menu1();
-    var ghostFolder = gui.addFolder('Basal Ganglia');
-    ghostFolder.add(menu, 'ghosted', true);
-    
-    var menu = new Menu4();
-    var ghostFolder = gui.addFolder('Cortex');
-    ghostFolder.add(menu, 'ghosted', true);
-    
-    var menu = new Menu2();
-    var ghostFolder = gui.addFolder('Midbrain');
-    ghostFolder.add(menu, 'ghosted', true); 
-    
-    var menu = new Menu3();
-    var ghostFolder = gui.addFolder('Brain');
-    ghostFolder.add(menu, 'ghosted', true);
-    
-
-    function typedToJS(arry) {
-        return [arry[0] * 255, arry[1] * 255, arry[2] * 255];
-    }
-    function JSToTyped(arry) {
-        return [arry[0] / 255, arry[1] / 255, arry[2] / 255];
-    }
-
-
-//------------------------------------------------------------------------------------------------------------------
-// ANNOTATION STUFF
-
-/* 
-
-// helps you make annotations quickly
-    new xeogl.CameraControl(); // User camera control
-    const createAnnotationsOnClick = true;
-    if (createAnnotationsOnClick) {
-
-        var i = -1;
-
-        scene.input.on("mouseclicked", function (coords) {
-
-            var hit = self.scene.pick({
-                canvasPos: coords,
-                pickSurface: true,
-            //   excludeMeshes: ["nerves.8", "nerves.7", "nerves.1", "nerves.6"]
+        /*  // fucntions for mouse over hightlighing that clash with the menu
+            cameraControl.on("hoverEnter", function (hit) {
+                hit.mesh.ghosted = false;
             });
+            cameraControl.on("hoverOut", function (hit) {
+                hit.mesh.ghosted = true;
+            }); */
 
-            if (hit) {
-
-                var mesh = hit.mesh;
-                var camera = mesh.scene.camera;
-
-                i++;
-                var num = i + 1;
-                var glyph = "" + num;
-
-
-                var annotation = new xeogl.Annotation({
-                    mesh: hit.mesh.id,
-                    primIndex: hit.primIndex,
-                    bary: hit.bary,
-                    glyph: glyph,
-                    title: "Annotation " + num,
-                    desc: "annotation",
-                    eye: camera.eye,
-                    look: camera.look,
-                    up: camera.up,
-                    pinShown: true,
-                    labelShown: true
-                });
-
-                console.log(JSON.stringify(annotation.getJSON(), null, "\t"));
+        cameraControl.on("picked", function (hit) {
+            var mesh = hit.mesh;
+            if (input.keyDown[input.KEY_SHIFT]) {
+                hit.mesh.selected = !hit.mesh.selected;
+            } else {
+                cameraFlight.flyTo(mesh);
             }
-        }); 
-    } 
-    */
- 
+        });
 
-</script>
+        cameraControl.on("pickedNothing", function (hit) {
+            cameraFlight.flyTo(model);
+        });
+
+        scene.highlightMaterial.fillAlpha = 0.6;
+        scene.highlightMaterial.edgeAlpha = 0.6;
+        scene.highlightMaterial.edgeColor = [0, 0, 0];
+        scene.highlightMaterial.edgeWidth = 2;
+
+        // A Skybox that wraps our Meshes in a cloudy background
+        var skybox = new xeogl.Skybox({
+            src: "FILES/miramarClouds.jpg",
+            size: 1000 // Default
+        });
+
+        // Get the default Scene off the Skybox
+        var scene = skybox.scene;
+        var camera = scene.camera;
+        // var spinning = true;
+
+
+        //------------------------------------------------------------------------------------------------------------------
+        // GHOSTING FUNCTIONALITY
+        //------------------------------------------------------------------------------------------------------------------
+
+        var Menu1 = function () {
+
+            var ghostMaterial = basalganglia.ghostMaterial;
+            // amygdala.ghosted = true;
+            this["ghosted"] = false;
+            var self = this;
+            var lastGhostMaterialPreset;
+            var update = function () {
+                basalganglia.ghosted = !!self["ghosted"];
+                var preset = self["ghostMaterial.preset"];
+                if (lastGhostMaterialPreset !== preset) {
+                    ghostMaterial.preset = preset;
+                    lastGhostMaterialPreset = preset;
+                }
+                requestAnimationFrame(update);
+            };
+            update();
+        };
+
+        var Menu2 = function () {
+
+            var ghostMaterial = mid.ghostMaterial;
+            // amygdala.ghosted = true;
+            this["ghosted"] = false;
+            var self = this;
+            var lastGhostMaterialPreset;
+            var update = function () {
+                mid.ghosted = !!self["ghosted"];
+                var preset = self["ghostMaterial.preset"];
+                if (lastGhostMaterialPreset !== preset) {
+                    ghostMaterial.preset = preset;
+                    lastGhostMaterialPreset = preset;
+                }
+                requestAnimationFrame(update);
+            };
+            update();
+        };
+
+        var Menu3 = function () {
+
+            var ghostMaterial = model.ghostMaterial;
+            this["ghosted"] = true;
+            var self = this;
+            var lastGhostMaterialPreset;
+            var update = function () {
+                model.ghosted = !!self["ghosted"];
+                var preset = self["ghostMaterial.preset"];
+                if (lastGhostMaterialPreset !== preset) {
+                    ghostMaterial.preset = preset;
+                    lastGhostMaterialPreset = preset;
+                }
+                requestAnimationFrame(update);
+            };
+            update();
+        };
+
+        var Menu4 = function () {
+
+            var ghostMaterial = cortex.ghostMaterial;
+            this["ghosted"] = true;
+            var self = this;
+            var lastGhostMaterialPreset;
+            var update = function () {
+                cortex.ghosted = !!self["ghosted"];
+                var preset = self["ghostMaterial.preset"];
+                if (lastGhostMaterialPreset !== preset) {
+                    ghostMaterial.preset = preset;
+                    lastGhostMaterialPreset = preset;
+                }
+                requestAnimationFrame(update);
+            };
+            update();
+        };
+
+
+
+        var gui = new dat.GUI({ autoPlace: false, top: 0, width: 400 });
+
+        document.getElementById('dat-gui-container').appendChild(gui.domElement);
+
+        var menu = new Menu1();
+        var ghostFolder = gui.addFolder('Basal Ganglia');
+        ghostFolder.add(menu, 'ghosted', true);
+
+        var menu = new Menu4();
+        var ghostFolder = gui.addFolder('Cortex');
+        ghostFolder.add(menu, 'ghosted', true);
+
+        var menu = new Menu2();
+        var ghostFolder = gui.addFolder('Midbrain');
+        ghostFolder.add(menu, 'ghosted', true);
+
+        var menu = new Menu3();
+        var ghostFolder = gui.addFolder('Brain');
+        ghostFolder.add(menu, 'ghosted', true);
+
+
+        function typedToJS(arry) {
+            return [arry[0] * 255, arry[1] * 255, arry[2] * 255];
+        }
+        function JSToTyped(arry) {
+            return [arry[0] / 255, arry[1] / 255, arry[2] / 255];
+        }
+
+
+        //------------------------------------------------------------------------------------------------------------------
+        // ANNOTATION STUFF
+
+        /* 
+        
+        // helps you make annotations quickly
+            new xeogl.CameraControl(); // User camera control
+            const createAnnotationsOnClick = true;
+            if (createAnnotationsOnClick) {
+        
+                var i = -1;
+        
+                scene.input.on("mouseclicked", function (coords) {
+        
+                    var hit = self.scene.pick({
+                        canvasPos: coords,
+                        pickSurface: true,
+                    //   excludeMeshes: ["nerves.8", "nerves.7", "nerves.1", "nerves.6"]
+                    });
+        
+                    if (hit) {
+        
+                        var mesh = hit.mesh;
+                        var camera = mesh.scene.camera;
+        
+                        i++;
+                        var num = i + 1;
+                        var glyph = "" + num;
+        
+        
+                        var annotation = new xeogl.Annotation({
+                            mesh: hit.mesh.id,
+                            primIndex: hit.primIndex,
+                            bary: hit.bary,
+                            glyph: glyph,
+                            title: "Annotation " + num,
+                            desc: "annotation",
+                            eye: camera.eye,
+                            look: camera.look,
+                            up: camera.up,
+                            pinShown: true,
+                            labelShown: true
+                        });
+        
+                        console.log(JSON.stringify(annotation.getJSON(), null, "\t"));
+                    }
+                }); 
+            } 
+            */
+
+
+    </script>
 </body>
+
 </html>
