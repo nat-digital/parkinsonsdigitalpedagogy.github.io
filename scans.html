@@ -118,7 +118,7 @@
             </div>
             <div class="header-logo">
                 <a href="/parkinsonsdigitalpedagogy.github.io/home.html">
-                    <img src="/parkinsonsdigitalpedagogy.github.io/FILES/brainlogo2.png" src="/home.html">
+                    <img src="/parkinsonsdigitalpedagogy.github.io/FILES/brainlogo3.png" src="/home.html">
                 </a>
             </div>
 
@@ -236,6 +236,15 @@
                         </div>
                     </div>
                 </li>
+                <button onclick="myFunction()">Toggle dark mode</button>
+
+                <script>
+                    function myFunction() {
+                        var element = document.body;
+                        element.classList.toggle("dark-mode");
+                    }
+                </script>
+
             </ul>
         </div>
     </div>
@@ -411,7 +420,7 @@
                     /* Container for image text */
                     .caption-container {
                         text-align: center;
-                        background-color: #222;
+                        background-color: #fff;
                         padding: 2px 16px;
                         color: white;
                     }
@@ -441,123 +450,127 @@
                 <!-- 
 <h2 style="text-align:center">Veiw the Scans!</h2> -->
 
-                <div class="container-fluid">
-                    <div class="mySlides">
-                        <div class="numbertext">1 / 6</div>
-                        <img src="./FILES/scans/Normal MRI Scan 1.png" style="width:100%">
-                    </div>
+                <div class="container">
 
-                    <div class="mySlides">
-                        <div class="numbertext">2 / 6</div>
-                        <img src="./FILES/scans/Normal MRI Scan 2.png" style="width:100%">
-                    </div>
+                    <div class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 column-main article-body">
 
-                    <div class="mySlides">
-                        <div class="numbertext">3 / 6</div>
-                        <img src="./FILES/scans/Normal MRI Scan 3.png" style="width:100%">
-                    </div>
-
-                    <div class="mySlides">
-                        <div class="numbertext">4 / 6</div>
-                        <img src="./FILES/scans/Differential MRI Scan - Normal Pressure Hydocephalus.png"
-                            style="width:100%">
-                    </div>
-
-                    <div class="mySlides">
-                        <div class="numbertext">5 / 6</div>
-                        <img src="./FILES/scans/Normal PET.png" style="width:100%">
-                    </div>
-
-                    <div class="mySlides">
-                        <div class="numbertext">6 / 6</div>
-                        <img src="./FILES/scans/Parkinson's PET.png" style="width:100%">
-                    </div>
-
-
-                    <a class="prev" onclick="plusSlides(-1)">❮</a>
-                    <a class="next" onclick="plusSlides(1)">❯</a>
-
-                    <div class="caption-container">
-                        <p id="caption"></p>
-                    </div>
-
-                    <div class="row">
-                        <div class="column">
-                            <img class="demo cursor" src="./FILES/scans/Normal MRI Scan 1.png" style="width:100%"
-                                onclick="currentSlide(1)" alt="Normal MRI Cross-Section">
+                        <div class="mySlides">
+                            <div class="numbertext">1 / 6</div>
+                            <img src="./FILES/scans/Normal MRI Scan 1.png" style="width:100%">
                         </div>
-                        <div class="column">
-                            <img class="demo cursor" src="./FILES/scans/Normal MRI Scan 2.png" style="width:100%"
-                                onclick="currentSlide(2)" alt="Normal MRI Cross-Section">
+
+                        <div class="mySlides">
+                            <div class="numbertext">2 / 6</div>
+                            <img src="./FILES/scans/Normal MRI Scan 2.png" style="width:100%">
                         </div>
-                        <div class="column">
-                            <img class="demo cursor" src="./FILES/scans/Normal MRI Scan 3.png" style="width:100%"
-                                onclick="currentSlide(3)" alt="Normal MRI Cross-Section">
+
+                        <div class="mySlides">
+                            <div class="numbertext">3 / 6</div>
+                            <img src="./FILES/scans/Normal MRI Scan 3.png" style="width:100%">
                         </div>
-                        <div class="column">
-                            <img class="demo cursor"
-                                src="./FILES/scans/Differential MRI Scan - Normal Pressure Hydocephalus.png"
-                                style="width:100%" onclick="currentSlide(4)"
-                                alt="Differential MRI Scan - Normal Pressure Hydocephalus">
+
+                        <div class="mySlides">
+                            <div class="numbertext">4 / 6</div>
+                            <img src="./FILES/scans/Differential MRI Scan - Normal Pressure Hydocephalus.png"
+                                style="width:100%">
                         </div>
-                        <div class="column">
-                            <img class="demo cursor" src="./FILES/scans/Normal PET.png" style="width:100%"
-                                onclick="currentSlide(5)" alt="Normal PET Scan">
+
+                        <div class="mySlides">
+                            <div class="numbertext">5 / 6</div>
+                            <img src="./FILES/scans/Normal PET.png" style="width:100%">
                         </div>
-                        <div class="column">
-                            <img class="demo cursor" src="./FILES/scans/Parkinson's PET.png" style="width:100%"
-                                onclick="currentSlide(6)" alt="Parkinson's PET scan">
+
+                        <div class="mySlides">
+                            <div class="numbertext">6 / 6</div>
+                            <img src="./FILES/scans/Parkinson's PET.png" style="width:100%">
+                        </div>
+
+
+                        <a class="prev" onclick="plusSlides(-1)">❮</a>
+                        <a class="next" onclick="plusSlides(1)">❯</a>
+
+                        <div class="caption-container">
+                            <p id="caption"></p>
+                        </div>
+
+                        <div class="row">
+                            <div class="column">
+                                <img class="demo cursor" src="./FILES/scans/Normal MRI Scan 1.png" style="width:100%"
+                                    onclick="currentSlide(1)" alt="Normal MRI Cross-Section">
+                            </div>
+                            <div class="column">
+                                <img class="demo cursor" src="./FILES/scans/Normal MRI Scan 2.png" style="width:100%"
+                                    onclick="currentSlide(2)" alt="Normal MRI Cross-Section">
+                            </div>
+                            <div class="column">
+                                <img class="demo cursor" src="./FILES/scans/Normal MRI Scan 3.png" style="width:100%"
+                                    onclick="currentSlide(3)" alt="Normal MRI Cross-Section">
+                            </div>
+                            <div class="column">
+                                <img class="demo cursor"
+                                    src="./FILES/scans/Differential MRI Scan - Normal Pressure Hydocephalus.png"
+                                    style="width:100%" onclick="currentSlide(4)"
+                                    alt="Differential MRI Scan - Normal Pressure Hydocephalus">
+                            </div>
+                            <div class="column">
+                                <img class="demo cursor" src="./FILES/scans/Normal PET.png" style="width:100%"
+                                    onclick="currentSlide(5)" alt="Normal PET Scan">
+                            </div>
+                            <div class="column">
+                                <img class="demo cursor" src="./FILES/scans/Parkinson's PET.png" style="width:100%"
+                                    onclick="currentSlide(6)" alt="Parkinson's PET scan">
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <script>
-                    let slideIndex = 1;
-                    showSlides(slideIndex);
+                    <script>
+                        let slideIndex = 1;
+                        showSlides(slideIndex);
 
-                    function plusSlides(n) {
-                        showSlides(slideIndex += n);
-                    }
-
-                    function currentSlide(n) {
-                        showSlides(slideIndex = n);
-                    }
-
-                    function showSlides(n) {
-                        let i;
-                        let slides = document.getElementsByClassName("mySlides");
-                        let dots = document.getElementsByClassName("demo");
-                        let captionText = document.getElementById("caption");
-                        if (n > slides.length) { slideIndex = 1 }
-                        if (n < 1) { slideIndex = slides.length }
-                        for (i = 0; i < slides.length; i++) {
-                            slides[i].style.display = "none";
+                        function plusSlides(n) {
+                            showSlides(slideIndex += n);
                         }
-                        for (i = 0; i < dots.length; i++) {
-                            dots[i].className = dots[i].className.replace(" active", "");
+
+                        function currentSlide(n) {
+                            showSlides(slideIndex = n);
                         }
-                        slides[slideIndex - 1].style.display = "block";
-                        dots[slideIndex - 1].className += " active";
-                        captionText.innerHTML = dots[slideIndex - 1].alt;
-                    }
-                </script>
+
+                        function showSlides(n) {
+                            let i;
+                            let slides = document.getElementsByClassName("mySlides");
+                            let dots = document.getElementsByClassName("demo");
+                            let captionText = document.getElementById("caption");
+                            if (n > slides.length) { slideIndex = 1 }
+                            if (n < 1) { slideIndex = slides.length }
+                            for (i = 0; i < slides.length; i++) {
+                                slides[i].style.display = "none";
+                            }
+                            for (i = 0; i < dots.length; i++) {
+                                dots[i].className = dots[i].className.replace(" active", "");
+                            }
+                            slides[slideIndex - 1].style.display = "block";
+                            dots[slideIndex - 1].className += " active";
+                            captionText.innerHTML = dots[slideIndex - 1].alt;
+                        }
+                    </script>
 
 
 
 
 
-                <div class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 column-main article-body">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-9 col-md-offset-1 column-main article-body">
 
 
-                    <p>.</p>
-                    <h3>Next<a href="/parkinsonsdigitalpedagogy.github.io/pathwaysandstructures.html"> - Pathways and
-                            Structures</a> </h3>
+                        <p>.</p>
+                        <h3>Next<a href="/parkinsonsdigitalpedagogy.github.io/pathwaysandstructures.html"> - Pathways
+                                and
+                                Structures</a> </h3>
 
-                    <h3>Or<a href="/parkinsonsdigitalpedagogy.github.io/differentialdiagnosis.html"> - Differential
-                            Diagnosis</a> </h3>
+                        <h3>Or<a href="/parkinsonsdigitalpedagogy.github.io/differentialdiagnosis.html"> - Differential
+                                Diagnosis</a> </h3>
+                    </div>
+
                 </div>
-
-
         </div>
 
         <div class="col-md-2 col-sm-4 column-right">
