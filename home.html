@@ -97,7 +97,14 @@
                         <li class="inner-link">
                             <a href="/parkinsonsdigitalpedagogy.github.io/references.html">References</a>
                         </li>
+                        <button onclick="myFunction()">Toggle dark mode</button>
 
+                        <script>
+                            function myFunction() {
+                                var element = document.body;
+                                element.classList.toggle("dark-mode");
+                            }
+                        </script>
                     </ul>
                 </li>
                 </li>
@@ -239,15 +246,7 @@
                         </div>
                     </div>
                 </li>
-                
-                <button onclick="myFunction()">Toggle dark mode</button>
-
-                <script>
-                    function myFunction() {
-                        var element = document.body;
-                        element.classList.toggle("dark-mode");
-                    }
-                </script>
+            
 
             </ul>
         </div>
