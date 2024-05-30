@@ -44,7 +44,7 @@
     //------------------------------------------------------------------------------------------------------------------
      var model = new xeogl.GLTFModel({
         id: "Neurons",
-        src: "./despina/neurons.gltf",
+        src: "./despina/new/neurons.gltf",
        // src: "./anat/aaa/mir2.gltf",
         handleNode: (function () { // Callback fired for each glTF scene node
             var objectCount = 0;
@@ -138,231 +138,232 @@
                         "Over time, a [Dopamine neuron with a build up of lewy bodies](focusAnnotation(4)), [damages the neurons](focusAnnotation(5)), causing them to [die](focusAnnotation(6)).",
                         ""
                     ],
-                    annotations: 
-                    [
-                   
-{
-"primIndex": 554877,
-	"bary": [
-		-1.33927,
-		0.75854,
-		1.58073
-	],
-	"offset": 0.2,
-	"occludable": false,
-	"glyph": "1",
-	"title": "A-Synuclein",
-	"desc": "A protein that normaly affects the release of neurotransmitters in the synapse.",
-	"eye": [
-		147.84163,
-		-80.67427,
-		-260.63275
-	],
-	"look": [
-		145.72255,
-		-81.57532,
-		-260.0874
-	],
-	"up": [
-		-0.36876,
-		0.92472,
-		0.09477
-	],
-	"pinShown": true,
-	"labelShown": true,
-	"mesh": "a_synuclein_copy"
-},
-                    {
+                    annotations:
+                                [
 
-                        "primIndex": 137862,
-                        "bary": [
-                            0.16355,
-                            0.24816,
-                            0.58829
-                        ],
-                        "offset": 0.2,
-                        "occludable": false,
-                        "glyph": "2",
-                        "title": "Fibril",
-                        "desc": "A build up from excess misfolded a-synuclein. Fibrils bind together forming lewy bodies.",
-                        "eye": [
-                            145.64151,
-                            -80.66927,
-                            -262.84753
-                        ],
-                        "look": [
-                            142.94165,
-                            -82.07716,
-                            -261.12769
-                        ],
-                        "up": [
-                            -0.3395,
-                            0.91546,
-                            0.21621
-                        ],
-                        "pinShown": true,
-                        "labelShown": true,
-                        "mesh": "Cube.004"
+                                    {
+                                        "primIndex": 554877,
+                                        "bary": [
+                                            -1.33927,
+                                            0.75854,
+                                            1.58073
+                                        ],
+                                        "offset": 0.2,
+                                        "occludable": false,
+                                        "glyph": "1",
+                                        "title": "A-Synuclein",
+                                        "desc": "A protein that normaly affects the release of neurotransmitters in the synapse.",
+                                        "eye": [
+		30.78139,
+		45.99941,
+		89.59402
+	],
+	"look": [
+		30.18143,
+		43.49745,
+		93.95879
+	],
+	"up": [
+		-0.06721,
+		0.86959,
+		0.48938
+	],
+                                        "pinShown": true,
+                                        "labelShown": true,
+                                        "mesh": "a_synuclein_copy"
+                                    },
+                                    {
 
-                        },
-                        {
-	"primIndex": 69759,
-	"bary": [
-		0.21211,
-		0.78954,
-		-0.00165
-	],
-	"offset": 0.2,
-	"occludable": false,
-	"glyph": "3",
-	"title": "Lewy Body",
-	"desc": "Built by misfolded a -synuclein fibrils.",
-	"eye": [
-		138.28409,
-		-77.41966,
-		-265.37292
+                                        "primIndex": 137862,
+                                        "bary": [
+                                            0.16355,
+                                            0.24816,
+                                            0.58829
+                                        ],
+                                        "offset": 0.2,
+                                        "occludable": false,
+                                        "glyph": "2",
+                                        "title": "Fibril",
+                                        "desc": "A build up from excess misfolded a-synuclein. Fibrils bind together forming lewy bodies.",
+                                        "eye": [
+		27.03461,
+		45.01186,
+		88.68652
 	],
 	"look": [
-		138.26187,
-		-79.91835,
-		-260.40332
+		26.97537,
+		44.76479,
+		89.11755
 	],
 	"up": [
-		-0.0021,
-		0.89348,
-		0.4492
+		-0.06721,
+		0.86959,
+		0.48938
 	],
-	"pinShown": true,
-	"labelShown": true,
-	"mesh": "Lewy_body_objPM3D_Sphere3D2"
-},
-{
-	"primIndex": 51645,
-	"bary": [
-		0.49064,
-		0.44341,
-		0.06595
-	],
-	"offset": 0.2,
-	"occludable": false,
-	"glyph": "4",
-	"title": "Nucleus",
-	"desc": "Cell nucleus of the neuron",
-	"eye": [
-		141.50272,
-		-73.65129,
-		-270.8382
+                                        "pinShown": true,
+                                        "labelShown": true,
+                                        "mesh": "Cube.004"
+
+                                    },
+                                    {
+                                        "primIndex": 69759,
+                                        "bary": [
+                                            0.21211,
+                                            0.78954,
+                                            -0.00165
+                                        ],
+                                        "offset": 0.2,
+                                        "occludable": false,
+                                        "glyph": "3",
+                                        "title": "Lewy Body",
+                                        "desc": "Built by misfolded a -synuclein fibrils.",
+                                        "eye": [
+		20.44024,
+		46.66613,
+		89.52569
 	],
 	"look": [
-		141.44672,
-		-79.94499,
-		-258.32074
+		20.73771,
+		46.3279,
+		89.7437
 	],
 	"up": [
-		-0.0021,
-		0.89348,
-		0.4492
+		0.54532,
+		0.73701,
+		0.39956
 	],
-	"pinShown": true,
-	"labelShown": true,
-	"mesh": "Nucleus_objPM3D_Sphere3D1"
-},
-{
-"primIndex": 2354238,
+                                        "pinShown": true,
+                                        "labelShown": true,
+                                        "mesh": "Lewy_body_objPM3D_Sphere3D2"
+                                    },
+                                    {
+                                        "primIndex": 85287,
 	"bary": [
-		0.23097,
-		0.84267,
-		-0.07364
+		0.10439,
+		0.84399,
+		0.05162
 	],
-	"offset": 0.2,
-	"occludable": false,
-	"glyph": "5",
-	"title": "Dopamine neuron with a build up of lewy bodies",
-	"desc": "",
-	"eye": [
-		125.63655,
-		-5.27399,
-		-276.33615
+                                        "offset": 0.2,
+                                        "occludable": false,
+                                        "glyph": "4",
+                                        "title": "Nucleus",
+                                        "desc": "Cell nucleus of the neuron",
+                                        "eye": [
+		22.10422,
+		47.41105,
+		90.63752
 	],
 	"look": [
-		154.51489,
-		-174.42682,
-		-267.51059
+		26.96167,
+		41.88815,
+		94.19725
 	],
 	"up": [
-		0.94135,
-		0.17578,
-		0.28811
+		0.54532,
+		0.73701,
+		0.39956
 	],
-	"pinShown": true,
-	"labelShown": true,
-	"mesh": "PD_neurons_mapsSkin_ZSphere9"
-},
-{
-	"primIndex": 1694739,
-	"bary": [
-		0.06422,
-		-0.1927,
-		1.12848
-	],
-	"offset": 0.2,
-	"occludable": false,
-	"glyph": "6",
-	"title": "Dying dopamine neuron",
-	"desc": "",
-	"eye": [
-		222.98035,
-		-119.43819,
-		-300.88361
+                                        "pinShown": true,
+                                        "labelShown": true,
+                                        "mesh": "Nucleus_objPM3D_Sphere3D1"
+                                    },
+                                    {
+                                        "primIndex": 2354238,
+                                        "bary": [
+                                            0.23097,
+                                            0.84267,
+                                            -0.07364
+                                        ],
+                                        "offset": 0.2,
+                                        "occludable": false,
+                                        "glyph": "5",
+                                        "title": "Dopamine neuron with a build up of lewy bodies",
+                                        "desc": "",
+                                        "eye": [
+		17.56532,
+		90.51419,
+		261.17377
 	],
 	"look": [
-		154.51489,
-		-174.42682,
-		-267.51059
+		-48.56577,
+		-27.59634,
+		61.34949
 	],
 	"up": [
-		-0.52619,
-		0.81082,
-		0.25639
+		-0.15366,
+		0.87213,
+		-0.4646
 	],
-	"pinShown": true,
-	"labelShown": true,
-	"mesh": "PD_neurons_mapsSkin_ZSphere9"
-},
-                   
-                        {
-	"primIndex": 3210072,
-	"bary": [
-		0.33599,
-		-0.09795,
-		0.76196
-	],
-	"offset": 0.2,
-	"occludable": false,
-	"glyph": "7",
-	"title": "Dead dopamine neuron",
-	"desc": "",
-	"eye": [
-		219.2935,
-		-287.79239,
-		-349.49432
+                                        "pinShown": true,
+                                        "labelShown": true,
+                                        "mesh": "PD_neurons_mapsSkin_ZSphere9"
+                                    },
+                                    {
+                                        "primIndex": 1694739,
+                                        "bary": [
+                                            0.06422,
+                                            -0.1927,
+                                            1.12848
+                                        ],
+                                        "offset": 0.2,
+                                        "occludable": false,
+                                        "glyph": "6",
+                                        "title": "Dying dopamine neuron",
+                                        "desc": "",
+                                        "eye": [
+		154.33986,
+		54.27138,
+		17.48127
 	],
 	"look": [
-		211.87573,
-		-271.31567,
-		-182.72591
+		153.90987,
+		54.02926,
+		17.56838
 	],
 	"up": [
-		0.0043,
-		0.99519,
-		-0.09818
+		-0.47357,
+		0.87556,
+		0.09584
 	],
-	"pinShown": true,
-	"labelShown": true,
-	"mesh": "PD_neurons_mapsSkin_ZSphere9"}]
-                });
-            
-              });
+                                        "pinShown": true,
+                                        "labelShown": true,
+                                        "mesh": "PD_neurons_mapsSkin_ZSphere9"
+                                    },
+
+                                    {
+                                        "primIndex": 3210072,
+                                        "bary": [
+                                            0.33599,
+                                            -0.09795,
+                                            0.76196
+                                        ],
+                                        "offset": 0.2,
+                                        "occludable": false,
+                                        "glyph": "7",
+                                        "title": "Dead dopamine neuron",
+                                        "desc": "",
+                                        "eye": [
+		189.30072,
+		50.78096,
+		-171.91986
+	],
+	"look": [
+		16.36221,
+		-108.66862,
+		50.12362
+	],
+	"up": [
+		-0.30295,
+		0.87011,
+		0.38883
+	],
+                                        "pinShown": true,
+                                        "labelShown": true,
+                                        "mesh": "PD_neurons_mapsSkin_ZSphere9"
+                                    }]
+                        });
+
+                    });
             
             </script>
         </div>
@@ -448,6 +449,7 @@ model2.on("loaded", function () {
 
    
         scene.ghostMaterial.edgeAlpha = 0.3;
+git
         scene.ghostMaterial.edgeWidth = 0.1;
         scene.ghostMaterial.fill = 0.0;
 
