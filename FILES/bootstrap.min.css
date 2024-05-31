@@ -4438,6 +4438,18 @@ tbody.collapse.in {
     outline: 0
 }
 
+.dark-mode .dropdown-menu {
+
+    background-color: #000000;
+
+    border: 1px solid #000000;
+    border: 1px solid   #000000;
+  
+    -webkit-box-shadow: 0 6px 12px  #000000;
+    box-shadow: 0 6px 12px  #000000;
+}
+
+
 .dropdown-menu {
     position: absolute;
     top: 100%;
