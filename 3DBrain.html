@@ -41,7 +41,7 @@
         //------------------------------------------------------------------------------------------------------------------
         var model = new xeogl.GLTFModel({
             id: "Brain",
-            src: ". /anatomy/new/brain/brainremaining.gltf",
+            src: "./anatomy/new/brain/brainremaining.gltf",
             // src: ". /anatomy/mir2.gltf",
             handleNode: (function () { // Callback fired for each glTF scene node
                 var objectCount = 0;
@@ -60,7 +60,7 @@
 
         var mid = new xeogl.GLTFModel({
             id: "Mid",
-            src: ". /anatomy/new/midbrain.gltf",
+            src: "./anatomy/new/midbrain.gltf",
             handleNode: (function () { // Callback fired for each glTF scene node
                 var objectCount = 0;
                 return function (nodeInfo, actions) {
@@ -78,7 +78,7 @@
 
         var basalganglia = new xeogl.GLTFModel({
             id: "BasalGanglia",
-            src: ". /anatomy/new/basalganglia.gltf",
+            src: "./anatomy/new/basalganglia.gltf",
             handleNode: (function () { // Callback fired for each glTF scene node
                 var objectCount = 0;
                 return function (nodeInfo, actions) {
@@ -96,7 +96,7 @@
 
         var cortex = new xeogl.GLTFModel({
             id: "Cortex",
-            src: ". /anatomy/new/right_hemisphere_transparent.gltf",
+            src: "./anatomy/new/right_hemisphere_transparent.gltf",
             handleNode: (function () { // Callback fired for each glTF scene node
                 var objectCount = 0;
                 return function (nodeInfo, actions) {
